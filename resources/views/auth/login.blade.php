@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Masuk — Marketplace Katering')
+@section('title', 'Masuk · Marketplace Katering')
 
 @section('content')
     <div class="row justify-content-center">
@@ -8,7 +8,7 @@
             <div class="card shadow-sm mt-lg-4">
                 <div class="card-body p-4">
                     <h1 class="h4 fw-bold text-center mb-1">Masuk</h1>
-                    <p class="text-muted text-center small mb-4">Portal katering &amp; kantor — Marketplace Katering</p>
+                    <p class="text-muted text-center small mb-4">Portal katering &amp; kantor · Marketplace Katering</p>
 
                     <form method="POST" action="{{ route('login.store') }}" novalidate>
                         @csrf

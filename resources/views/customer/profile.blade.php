@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Profil Kantor — Marketplace Katering')
+@section('title', 'Profil Kantor · Marketplace Katering')
 
 @section('content')
     <div class="row justify-content-center">

@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Kelola Katering — Marketplace Katering')
+@section('title', 'Kelola Katering · Marketplace Katering')
 
 @section('content')
     <h1 class="h4 fw-bold mb-3"><i class="bi bi-shop me-1 text-brand"></i>Kelola Katering</h1>

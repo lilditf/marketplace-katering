@@ -2,7 +2,7 @@
      Tombol aksi berbeda per viewer; bagian ini juga print-friendly (lihat @media print). --}}
 @extends('layouts.portal')
 
-@section('title', 'Invoice ' . $invoice->invoice_number . ' — Marketplace Katering')
+@section('title', 'Invoice ' . $invoice->invoice_number . ' · Marketplace Katering')
 
 @section('content')
     <div class="row justify-content-center">

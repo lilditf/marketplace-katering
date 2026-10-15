@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Pesan — ' . $catering->company_name)
+@section('title', 'Pesan · ' . $catering->company_name)
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -109,7 +109,7 @@
                             <div class="alert alert-danger py-2 small">{{ $message }}</div>
                         @enderror
                         @if ($errors->hasAny(['items.0.menu_id', 'items.0.qty']))
-                            <div class="alert alert-danger py-2 small">Data pesanan tidak valid — periksa kembali isian porsi.</div>
+                            <div class="alert alert-danger py-2 small">Data pesanan tidak valid, periksa kembali isian porsi.</div>
                         @endif
 
                         <button type="submit" class="btn btn-brand w-100 py-2" {{ $menus->isEmpty() ? 'disabled' : '' }}>

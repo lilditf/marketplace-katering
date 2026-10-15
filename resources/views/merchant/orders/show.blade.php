@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Order ' . $order->order_number . ' — Marketplace Katering')
+@section('title', 'Order ' . $order->order_number . ' · Marketplace Katering')
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -72,7 +72,7 @@
                     @else
                         <p class="small text-muted mb-0">
                             <i class="bi bi-lock me-1"></i>Order berstatus <strong>{{ $order->statusLabel() }}</strong>
-                            bersifat final — tidak ada perubahan status lagi.
+                            bersifat final; tidak ada perubahan status lagi.
                         </p>
                     @endif
                 </div>

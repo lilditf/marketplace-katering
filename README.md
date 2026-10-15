@@ -1,14 +1,14 @@
 # Marketplace Katering
 
 > Demo live (Railway): <https://marketplace-katering-production.up.railway.app>
-> Catatan: filesystem Railway bersifat ephemeral — data dan foto kembali ke
+> Catatan: filesystem Railway bersifat ephemeral. Data dan foto kembali ke
 > kondisi seed setiap redeploy/restart.
 
 Web app Laravel yang menghubungkan merchant katering dengan kantor customer
 untuk pemesanan makan siang karyawan. Setiap pembelian menerbitkan
 invoice otomatis yang bisa diakses kedua belah pihak.
 
-Dibuat sebagai hasil tes coding Web Developer — PT Transindo Data Perkasa.
+Dibuat sebagai hasil tes coding Web Developer, PT Transindo Data Perkasa.
 
 ## Fitur
 
@@ -159,7 +159,7 @@ yang saya buat, beserta alasannya:
 - Kategori menu (Makanan Berat/Ringan/Minuman/Paket) + pengurutan hasil
   pencarian. Membantu kantor memindai katalog dengan cepat.
 - Batas tanggal pengiriman (minimal besok, maksimal 6 bulan) + catatan order
-  (mis. "tanpa sambal untuk 10 porsi") — kebutuhan nyata pemesanan katering.
+  (mis. "tanpa sambal untuk 10 porsi"), kebutuhan yang memang muncul di pemesanan katering.
 - Nomor order/invoice berformat ORD-/INV- tanggal + urut, memudahkan rujukan
   saat komunikasi kedua pihak.
 - Throttle login 5x/menit per email+IP, sebagai bagian dari "keamanan login"

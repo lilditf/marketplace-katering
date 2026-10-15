@@ -49,8 +49,8 @@
                 </button>
 
                 {{-- Judul topbar diambil dari @section('title') tiap halaman
-                     (bagian sebelum " — "), tanpa perlu mengubah view anak. --}}
-                @php($pageTitle = \Illuminate\Support\Str::before(trim($__env->yieldContent('title')), ' — '))
+                     (bagian sebelum " · "), tanpa perlu mengubah view anak. --}}
+                @php($pageTitle = \Illuminate\Support\Str::before(trim($__env->yieldContent('title')), ' · '))
                 <h1 class="topbar-title">{{ $pageTitle !== '' && $pageTitle !== 'Marketplace Katering' ? $pageTitle : 'Dashboard' }}</h1>
 
                 <div class="ms-auto dropdown">

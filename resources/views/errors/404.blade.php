@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Halaman Tidak Ditemukan — Marketplace Katering')
+@section('title', 'Halaman Tidak Ditemukan · Marketplace Katering')
 
 @section('content')
     <div class="text-center py-5">

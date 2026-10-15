@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Order Saya — Marketplace Katering')
+@section('title', 'Order Saya · Marketplace Katering')
 
 @section('content')
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">

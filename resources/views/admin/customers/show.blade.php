@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', $customer->office_name . ' — Marketplace Katering')
+@section('title', $customer->office_name . ' · Marketplace Katering')
 
 @section('content')
     <nav aria-label="breadcrumb">

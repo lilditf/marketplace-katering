@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Marketplace Katering — Makan Siang Kantor Jadi Lebih Mudah')
+@section('title', 'Marketplace Katering · Makan Siang Kantor Tanpa Repot')
 
 @section('content')
     <section class="market-hero mb-4 mb-lg-5">
@@ -11,7 +11,7 @@
             <div class="col-lg-7">
                 <div class="eyebrow mb-3">
                     <i class="bi bi-stars"></i>
-                    Solusi makan siang untuk tim modern
+                    Pemesanan katering untuk makan siang kantor
                 </div>
                 <h1 class="hero-title mb-3">
                     Makan siang kantor,<br>
@@ -90,8 +90,8 @@
     <section class="mb-5">
         <div class="section-heading text-center mx-auto mb-4">
             <span class="section-kicker">Cara kerjanya</span>
-            <h2>Sederhana untuk kantor, jelas untuk katering</h2>
-            <p>Setiap langkah dibuat singkat agar tim Anda bisa fokus pada pekerjaan, bukan administrasi makan siang.</p>
+            <h2>Alur yang sama untuk kedua pihak</h2>
+            <p>Setiap langkah dibuat singkat agar urusan makan siang tidak menyita waktu tim Anda.</p>
         </div>
 
         <div class="journey-grid">
@@ -108,15 +108,15 @@
             <article class="journey-card">
                 <div class="journey-topline"><span>03</span><i class="bi bi-receipt-cutoff"></i></div>
                 <h3>Pantau dalam satu tempat</h3>
-                <p>Order, status pengiriman, dan invoice dapat diakses oleh kedua pihak secara transparan.</p>
+                <p>Kedua pihak melihat order, status pengiriman, dan invoice yang sama.</p>
             </article>
         </div>
     </section>
 
     <section class="portal-section mb-3">
         <div class="section-heading mb-4">
-            <span class="section-kicker">Dua portal, satu ekosistem</span>
-            <h2>Dirancang untuk kebutuhan setiap pihak</h2>
+            <span class="section-kicker">Dua portal yang saling terhubung</span>
+            <h2>Katering mengelola menu, kantor mengatur jadwal</h2>
         </div>
 
         <div class="row g-4">
