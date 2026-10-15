@@ -1,7 +1,11 @@
 # Marketplace Katering
 
-Web app Laravel yang menghubungkan perusahaan katering (merchant) dengan kantor
-(customer) untuk pemesanan makan siang karyawan. Setiap pembelian menerbitkan
+> Demo live (Railway): <https://marketplace-katering-production.up.railway.app>
+> Catatan: filesystem Railway bersifat ephemeral — data dan foto kembali ke
+> kondisi seed setiap redeploy/restart.
+
+Web app Laravel yang menghubungkan merchant katering dengan kantor customer
+untuk pemesanan makan siang karyawan. Setiap pembelian menerbitkan
 invoice otomatis yang bisa diakses kedua belah pihak.
 
 Dibuat sebagai hasil tes coding Web Developer — PT Transindo Data Perkasa.
