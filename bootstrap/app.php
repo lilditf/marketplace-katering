@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
         ]);
+
+        // Percaya proxy Railway (TLS berakhir di proxy): header
+        // X-Forwarded-Proto/IP dibaca agar request terdeteksi https
+        // dan throttle login memakai IP pengunjung asli.
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

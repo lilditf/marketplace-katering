@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -24,7 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Render pagination dengan markup Bootstrap 5 (default Laravel = Tailwind).
+        // Pagination dirender dengan markup Bootstrap 5.
         Paginator::useBootstrapFive();
+
+        // Di balik reverse proxy HTTPS (Railway dsb): paksa skema https agar
+        // route()/asset() tidak menghasilkan URL http (form akan diblokir
+        // Chrome sebagai "Form is not secure" jika action-nya http).
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
