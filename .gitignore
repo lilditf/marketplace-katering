@@ -22,3 +22,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# File lokal: soal ujian & catatan audit, tidak untuk di-upload/commit
+soal1.txt
+soal2.txt
+analisis-ux.md
