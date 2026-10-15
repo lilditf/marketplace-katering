@@ -514,6 +514,7 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
 
 .portal-sidebar .sidebar-brand,
 .portal-offcanvas .sidebar-brand {
+    text-decoration: none;
     font-family: "Fraunces", Georgia, serif;
     font-weight: 700;
     font-size: 1.1rem;
@@ -536,6 +537,8 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
 }
 
 .sidebar-link {
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease;
     display: flex;
     align-items: center;
     gap: .65rem;
@@ -555,7 +558,24 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
     border-left-color: var(--accent);
     font-weight: 600;
 }
-.sidebar-link .bi { font-size: 1.05rem; width: 1.2rem; text-align: center; }
+.sidebar-link .bi {
+    font-size: 1rem;
+    width: 34px; height: 34px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .55rem;
+    background: rgba(255, 255, 255, .07);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.sidebar-link:hover .bi { background: rgba(255, 255, 255, .14); }
+.sidebar-link.active .bi {
+    background: var(--accent);
+    color: #3d2f0e;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+}
 
 .sidebar-foot {
     margin-top: auto;
@@ -564,7 +584,7 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
     font-size: .78rem;
     color: rgba(255, 255, 255, .55);
 }
-.sidebar-foot a { color: rgba(255, 255, 255, .82); }
+.sidebar-foot a { color: rgba(255, 255, 255, .82); text-decoration: none; }
 .sidebar-foot a:hover { color: var(--accent); }
 
 /* Offcanvas (mobile) memakai tampilan sidebar yang sama */
@@ -655,7 +675,7 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
     border-radius: .6rem;
     margin: .1rem .55rem;
 }
-.sidebar-collapsed .portal-sidebar .sidebar-link .bi { font-size: 1.25rem; width: auto; }
+.sidebar-collapsed .portal-sidebar .sidebar-link .bi { font-size: 1.15rem; }
 .sidebar-collapsed .portal-sidebar .sidebar-link.active { background: rgba(255, 255, 255, .12); }
 .sidebar-collapsed .sidebar-collapse-btn { justify-content: center; margin: .35rem .6rem .6rem; }
 .sidebar-collapsed .sidebar-collapse-btn .bi { transform: rotate(180deg); }
