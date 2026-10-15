@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <label for="category" class="form-label">Kategori <span class="text-danger">*</span></label>
         <select class="form-select @error('category') is-invalid @enderror" id="category" name="category" required>
-            <option value="">— Pilih kategori —</option>
+            <option value="">Pilih kategori</option>
             @foreach ($categories as $cat)
                 <option value="{{ $cat }}" @selected(old('category', $menu->category ?? '') === $cat)>{{ $cat }}</option>
             @endforeach

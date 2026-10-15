@@ -40,7 +40,7 @@
                 <div class="card-body small">
                     <div><span class="text-muted">Tanggal:</span>
                         <span class="fw-semibold">{{ $order->delivery_date->translatedFormat('l, d F Y') }}</span></div>
-                    <div class="mt-1"><span class="text-muted">Catatan:</span> {{ $order->notes ?: '—' }}</div>
+                    <div class="mt-1"><span class="text-muted">Catatan:</span> {{ $order->notes ?: '-' }}</div>
                     <div class="mt-1 text-muted">Dibuat: {{ $order->created_at->translatedFormat('d M Y, H:i') }} WIB</div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                             @include('partials.status-badge', ['status' => $order->invoice->payment_status])
                         </div>
                         <a href="{{ route('customer.invoices.show', $order->invoice) }}"
-                           class="btn btn-sm btn-outline-success w-100 mt-3">Lihat Invoice</a>
+                           class="btn btn-sm btn-outline-brand w-100 mt-3">Lihat Invoice</a>
                     </div>
                 </div>
             @endif

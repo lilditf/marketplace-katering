@@ -8,13 +8,13 @@
             <h1 class="h4 fw-bold mb-1">Dashboard Katering</h1>
             <p class="text-muted small mb-0">
                 {{ $merchant->company_name }} · {{ $merchant->city }}
-                <span class="badge bg-success-subtle text-success-emphasis ms-1">{{ $merchant->cuisine_type }}</span>
+                <span class="badge bg-brand-subtle text-brand-emphasis ms-1">{{ $merchant->cuisine_type }}</span>
                 @unless ($merchant->is_active)
                     <span class="badge bg-secondary ms-1">Profil Nonaktif (tidak tampil di pencarian)</span>
                 @endunless
             </p>
         </div>
-        <a href="{{ route('merchant.menus.create') }}" class="btn btn-success">
+        <a href="{{ route('merchant.menus.create') }}" class="btn btn-brand">
             <i class="bi bi-plus-lg me-1"></i>Tambah Menu
         </a>
     </div>
@@ -72,7 +72,7 @@
                                 @endif
                                 <span>{{ $item->menu->name ?? '(menu dihapus)' }}</span>
                             </div>
-                            <span class="badge bg-success-subtle text-success-emphasis">{{ $item->total_qty }} porsi</span>
+                            <span class="badge bg-brand-subtle text-brand-emphasis">{{ $item->total_qty }} porsi</span>
                         </div>
                     @empty
                         <p class="text-muted small p-3 mb-0">Belum ada penjualan. Semangat!</p>

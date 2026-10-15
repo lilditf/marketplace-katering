@@ -3,7 +3,7 @@
 @section('title', 'Order Masuk — Marketplace Katering')
 
 @section('content')
-    <h1 class="h4 fw-bold mb-3"><i class="bi bi-inboxes me-1 text-success"></i>Order Masuk</h1>
+    <h1 class="h4 fw-bold mb-3"><i class="bi bi-inboxes me-1 text-brand"></i>Order Masuk</h1>
 
     {{-- Tab filter status dengan jumlah order per status --}}
     <ul class="nav nav-pills mb-3 flex-wrap gap-1">
@@ -60,7 +60,7 @@
                                 @endif
                             </td>
                             <td class="text-end">
-                                <a href="{{ route('merchant.orders.show', $order) }}" class="btn btn-sm btn-outline-success">
+                                <a href="{{ route('merchant.orders.show', $order) }}" class="btn btn-sm btn-outline-brand">
                                     Detail <i class="bi bi-chevron-right"></i>
                                 </a>
                             </td>

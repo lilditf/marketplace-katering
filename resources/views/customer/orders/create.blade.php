@@ -11,7 +11,7 @@
         </ol>
     </nav>
 
-    <h1 class="h4 fw-bold mb-1"><i class="bi bi-cart-plus me-1 text-success"></i>Form Pemesanan</h1>
+    <h1 class="h4 fw-bold mb-1"><i class="bi bi-cart-plus me-1 text-brand"></i>Form Pemesanan</h1>
     <p class="text-muted small mb-3">
         Pesan dari <strong>{{ $catering->company_name }}</strong> · {{ $catering->city }}.
         Isi jumlah porsi pada menu yang diinginkan (0 = tidak dipesan).
@@ -84,7 +84,7 @@
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span class="fw-semibold">Estimasi Total</span>
-                            <span class="fw-bold fs-5 text-success" id="orderTotal">Rp0</span>
+                            <span class="fw-bold fs-5 text-brand" id="orderTotal">Rp0</span>
                         </div>
 
                         <div class="mb-3">
@@ -112,7 +112,7 @@
                             <div class="alert alert-danger py-2 small">Data pesanan tidak valid — periksa kembali isian porsi.</div>
                         @endif
 
-                        <button type="submit" class="btn btn-success w-100 py-2" {{ $menus->isEmpty() ? 'disabled' : '' }}>
+                        <button type="submit" class="btn btn-brand w-100 py-2" {{ $menus->isEmpty() ? 'disabled' : '' }}>
                             <i class="bi bi-check2-circle me-1"></i>Buat Order &amp; Terbitkan Invoice
                         </button>
                         <p class="small text-muted mt-2 mb-0">

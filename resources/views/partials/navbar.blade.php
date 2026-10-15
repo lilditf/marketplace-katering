@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-success no-print">
+<nav class="navbar navbar-expand-lg navbar-light navbar-app no-print">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             <i class="bi bi-basket2-fill me-1"></i>Marketplace Katering
@@ -56,7 +56,7 @@
                            href="{{ route('login') }}">Masuk</a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-light btn-sm px-3" href="{{ route('register') }}">Daftar</a>
+                        <a class="btn btn-brand btn-sm px-3" href="{{ route('register') }}">Daftar</a>
                     </li>
                 @else
                     <li class="nav-item dropdown">

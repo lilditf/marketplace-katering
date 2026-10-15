@@ -3,7 +3,7 @@
 @section('title', 'Cari Katering — Marketplace Katering')
 
 @section('content')
-    <h1 class="h4 fw-bold mb-3"><i class="bi bi-search me-1 text-success"></i>Cari Katering</h1>
+    <h1 class="h4 fw-bold mb-3"><i class="bi bi-search me-1 text-brand"></i>Cari Katering</h1>
 
     {{-- Form pencarian: method GET agar filter bisa dibagikan/di-bookmark --}}
     <div class="card shadow-sm mb-4">
@@ -33,15 +33,15 @@
                     </select>
                 </div>
                 <div class="col-md-1 d-grid">
-                    <button type="submit" class="btn btn-success" title="Cari"><i class="bi bi-search"></i></button>
+                    <button type="submit" class="btn btn-brand" title="Cari"><i class="bi bi-search"></i></button>
                 </div>
             </form>
             @if ($keyword || $city || $cuisine)
                 <div class="mt-2 small">
                     Filter aktif:
-                    @if ($keyword)<span class="badge bg-success-subtle text-success-emphasis">q: {{ $keyword }}</span>@endif
-                    @if ($city)<span class="badge bg-success-subtle text-success-emphasis">{{ $city }}</span>@endif
-                    @if ($cuisine)<span class="badge bg-success-subtle text-success-emphasis">{{ $cuisine }}</span>@endif
+                    @if ($keyword)<span class="badge bg-brand-subtle text-brand-emphasis">q: {{ $keyword }}</span>@endif
+                    @if ($city)<span class="badge bg-brand-subtle text-brand-emphasis">{{ $city }}</span>@endif
+                    @if ($cuisine)<span class="badge bg-brand-subtle text-brand-emphasis">{{ $cuisine }}</span>@endif
                     <a href="{{ route('customer.caterings.index') }}" class="ms-1">hapus semua</a>
                 </div>
             @endif
@@ -57,7 +57,7 @@
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <h2 class="h6 fw-bold mb-0">{{ $merchantProfile->company_name }}</h2>
-                            <span class="badge bg-success-subtle text-success-emphasis">{{ $merchantProfile->cuisine_type }}</span>
+                            <span class="badge bg-brand-subtle text-brand-emphasis">{{ $merchantProfile->cuisine_type }}</span>
                         </div>
                         <div class="small text-muted mb-2">
                             <i class="bi bi-geo-alt me-1"></i>{{ $merchantProfile->city }}
@@ -69,9 +69,9 @@
                         </p>
                         <div class="d-flex gap-2">
                             <a href="{{ route('customer.caterings.show', $merchantProfile) }}"
-                               class="btn btn-sm btn-outline-success flex-grow-1">Lihat Menu</a>
+                               class="btn btn-sm btn-outline-brand flex-grow-1">Lihat Menu</a>
                             <a href="{{ route('customer.orders.create', $merchantProfile) }}"
-                               class="btn btn-sm btn-success flex-grow-1">Pesan</a>
+                               class="btn btn-sm btn-brand flex-grow-1">Pesan</a>
                         </div>
                     </div>
                 </div>

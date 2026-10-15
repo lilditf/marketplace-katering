@@ -5,7 +5,7 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <h1 class="h4 fw-bold mb-3"><i class="bi bi-shop me-1 text-success"></i>Profil Katering</h1>
+            <h1 class="h4 fw-bold mb-3"><i class="bi bi-shop me-1 text-brand"></i>Profil Katering</h1>
 
             <div class="card shadow-sm">
                 <div class="card-body p-4">
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <button type="submit" class="btn btn-success px-4">
+                            <button type="submit" class="btn btn-brand px-4">
                                 <i class="bi bi-save me-1"></i>Simpan Profil
                             </button>
                         </div>

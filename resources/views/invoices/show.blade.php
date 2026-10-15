@@ -12,7 +12,7 @@
                     {{-- Kop invoice --}}
                     <div class="d-flex flex-wrap justify-content-between align-items-start mb-4 gap-2">
                         <div>
-                            <h1 class="h4 fw-bold mb-0 text-success">INVOICE</h1>
+                            <h1 class="h4 fw-bold mb-0 text-brand">INVOICE</h1>
                             <div class="fw-semibold">{{ $invoice->invoice_number }}</div>
                             <div class="small text-muted">Terbit: {{ $invoice->issued_at->translatedFormat('d F Y') }}</div>
                         </div>
@@ -98,7 +98,7 @@
                             <tfoot>
                                 <tr class="table-light">
                                     <th colspan="4" class="text-end">TOTAL</th>
-                                    <th class="text-end fs-5 text-success">Rp{{ number_format($invoice->total, 0, ',', '.') }}</th>
+                                    <th class="text-end fs-5 text-brand">Rp{{ number_format($invoice->total, 0, ',', '.') }}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -113,7 +113,7 @@
                                           onsubmit="return confirm('Tandai invoice {{ $invoice->invoice_number }} LUNAS?');">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-success btn-sm">
+                                        <button type="submit" class="btn btn-brand btn-sm">
                                             <i class="bi bi-check2-circle me-1"></i>Tandai Lunas
                                         </button>
                                     </form>

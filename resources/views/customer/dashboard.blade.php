@@ -10,7 +10,7 @@
                 {{ $customer->city }} · PIC: {{ $customer->pic_name ?: '-' }}
             </p>
         </div>
-        <a href="{{ route('customer.caterings.index') }}" class="btn btn-success">
+        <a href="{{ route('customer.caterings.index') }}" class="btn btn-brand">
             <i class="bi bi-search me-1"></i>Cari Katering
         </a>
     </div>
@@ -59,7 +59,7 @@
                     @if ($order->invoice)
                         @include('partials.status-badge', ['status' => $order->invoice->payment_status])
                     @endif
-                    <a href="{{ route('customer.orders.show', $order) }}" class="btn btn-sm btn-outline-success">Detail</a>
+                    <a href="{{ route('customer.orders.show', $order) }}" class="btn btn-sm btn-outline-brand">Detail</a>
                 </div>
             </div>
         </div>

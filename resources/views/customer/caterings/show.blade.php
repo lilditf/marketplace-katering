@@ -22,9 +22,9 @@
                         <span class="mx-1">·</span>
                         <i class="bi bi-telephone me-1"></i>{{ $catering->user->phone ?? '-' }}
                     </div>
-                    <span class="badge bg-success-subtle text-success-emphasis">{{ $catering->cuisine_type }}</span>
+                    <span class="badge bg-brand-subtle text-brand-emphasis">{{ $catering->cuisine_type }}</span>
                 </div>
-                <a href="{{ route('customer.orders.create', $catering) }}" class="btn btn-success">
+                <a href="{{ route('customer.orders.create', $catering) }}" class="btn btn-brand">
                     <i class="bi bi-cart-plus me-1"></i>Pesan dari Katering Ini
                 </a>
             </div>
@@ -53,13 +53,13 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start gap-2">
                                 <h3 class="h6 fw-bold mb-1">{{ $menu->name }}</h3>
-                                <span class="badge bg-success text-nowrap">Rp{{ number_format($menu->price, 0, ',', '.') }}</span>
+                                <span class="badge bg-brand-subtle text-brand-emphasis text-nowrap">Rp{{ number_format($menu->price, 0, ',', '.') }}</span>
                             </div>
                             <p class="small text-muted mb-0">{{ $menu->description ?: 'Tanpa deskripsi.' }}</p>
                         </div>
                         <div class="card-footer bg-white border-0 pb-3">
                             <a href="{{ route('customer.orders.create', $catering) }}"
-                               class="btn btn-sm btn-outline-success w-100">Pilih untuk pesanan</a>
+                               class="btn btn-sm btn-outline-brand w-100">Pilih untuk pesanan</a>
                         </div>
                     </div>
                 </div>

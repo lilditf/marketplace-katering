@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-        <h1 class="h4 fw-bold mb-0"><i class="bi bi-egg-fried me-1 text-success"></i>Menu Saya</h1>
-        <a href="{{ route('merchant.menus.create') }}" class="btn btn-success">
+        <h1 class="h4 fw-bold mb-0"><i class="bi bi-egg-fried me-1 text-brand"></i>Menu Saya</h1>
+        <a href="{{ route('merchant.menus.create') }}" class="btn btn-brand">
             <i class="bi bi-plus-lg me-1"></i>Tambah Menu
         </a>
     </div>
@@ -52,7 +52,7 @@
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" title="Klik untuk mengubah"
-                                            class="btn btn-sm {{ $menu->is_available ? 'btn-outline-success' : 'btn-outline-secondary' }}">
+                                            class="btn btn-sm {{ $menu->is_available ? 'btn-outline-brand' : 'btn-outline-secondary' }}">
                                         <i class="bi {{ $menu->is_available ? 'bi-check-circle' : 'bi-pause-circle' }} me-1"></i>
                                         {{ $menu->is_available ? 'Tersedia' : 'Kosong' }}
                                     </button>

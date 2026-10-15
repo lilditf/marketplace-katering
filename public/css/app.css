@@ -1,0 +1,244 @@
+/* ============================================================
+   Marketplace Katering — Design Tokens & Brand Layer
+   ------------------------------------------------------------
+   Arah desain (UI-UX-Pro-Max + taste-skill):
+   - Gaya: Minimalism/Swiss — bersih, fungsional, whitespace jelas.
+   - Satu aksen: burnt orange #C2410C (selaras tema kuliner,
+     kontras 5.3:1 dengan teks putih — lolos WCAG AA).
+   - Basis netral hangat (stone), BUKAN krim/coklat generik.
+   - Tipografi: Karla untuk seluruh UI kerja; Playfair Display SC
+     hanya untuk wordmark & hero (rasa "kuliner" di permukaan
+     marketing saja, portal tetap sans demi keterbacaan).
+   - Warna semantik Bootstrap (success/danger/warning) DIPERTAHANKAN
+     untuk status order & pembayaran — itu sinyal fungsional,
+     bukan dekorasi.
+   ============================================================ */
+
+:root {
+    /* Brand */
+    --brand: #C2410C;
+    --brand-dark: #9A3412;
+    --brand-subtle: #FBEADF;
+    --brand-emphasis: #7C2D12;
+
+    /* Netral hangat */
+    --ink: #1C1917;
+    --bg: #F7F6F4;
+    --card: #FFFFFF;
+    --border: #E7E4DF;
+
+    /* Remap token Bootstrap 5.3 (tanpa mengubah nama kelas di view) */
+    --bs-body-bg: var(--bg);
+    --bs-body-color: #44403C;
+    --bs-body-font-family: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --bs-secondary-color: #6B655F;
+    --bs-border-color: var(--border);
+    --bs-link-color: var(--brand);
+    --bs-link-hover-color: var(--brand-dark);
+    --bs-border-radius: .5rem;
+}
+
+/* ---------- Tipografi ---------- */
+h1, h2, h3, .h1, .h2, .h3, .h4 {
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.font-display {
+    font-family: "Playfair Display SC", Georgia, serif;
+    letter-spacing: 0;
+}
+
+/* ---------- Brand utilities ---------- */
+.text-brand { color: var(--brand) !important; }
+.bg-brand { background-color: var(--brand) !important; }
+.bg-brand-subtle { background-color: var(--brand-subtle) !important; }
+.text-brand-emphasis { color: var(--brand-emphasis) !important; }
+
+.btn-brand {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--brand);
+    --bs-btn-border-color: var(--brand);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand-dark);
+    --bs-btn-hover-border-color: var(--brand-dark);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--brand-dark);
+    --bs-btn-active-border-color: var(--brand-dark);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--brand);
+    --bs-btn-disabled-border-color: var(--brand);
+    --bs-btn-font-weight: 600;
+}
+
+.btn-outline-brand {
+    --bs-btn-color: var(--brand);
+    --bs-btn-border-color: var(--brand);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--brand);
+    --bs-btn-hover-border-color: var(--brand);
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--brand-dark);
+    --bs-btn-active-border-color: var(--brand-dark);
+    --bs-btn-disabled-color: var(--brand);
+    --bs-btn-disabled-border-color: var(--brand);
+}
+
+/* ---------- Interaksi: halus & konsisten ---------- */
+a, .btn, .card, .form-control, .form-select {
+    transition: color .18s cubic-bezier(.22, .68, .35, 1),
+                background-color .18s cubic-bezier(.22, .68, .35, 1),
+                border-color .18s cubic-bezier(.22, .68, .35, 1),
+                box-shadow .18s cubic-bezier(.22, .68, .35, 1),
+                transform .12s cubic-bezier(.22, .68, .35, 1);
+}
+
+/* Umpan taktil saat tombol ditekan */
+.btn:active { transform: scale(.98); }
+
+/* Fokus keyboard harus selalu terlihat (aksesibilitas) */
+:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: .25rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 .2rem rgba(194, 65, 12, .15);
+}
+
+/* Skip-to-content: muncul hanya saat fokus keyboard */
+.skip-link {
+    position: absolute;
+    top: -3rem;
+    left: 1rem;
+    z-index: 1100;
+    padding: .5rem 1rem;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 0 0 .5rem .5rem;
+    transition: top .15s ease-out;
+}
+.skip-link:focus { top: 0; color: #fff; }
+
+/* ---------- Navbar ---------- */
+.navbar-app {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+.navbar-app .navbar-brand {
+    font-family: "Playfair Display SC", Georgia, serif;
+    font-weight: 700;
+    color: var(--brand) !important;
+    font-size: 1.15rem;
+}
+.navbar-app .nav-link {
+    color: #44403C;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+}
+.navbar-app .nav-link:hover { color: var(--brand); }
+.navbar-app .nav-link.active {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+}
+.navbar-app .dropdown-menu { border-color: var(--border); }
+
+/* ---------- Hero beranda ---------- */
+.hero {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--brand);
+    border-radius: var(--bs-border-radius);
+}
+.hero .stat {
+    border-top: 2px solid var(--brand-subtle);
+    padding-top: .75rem;
+}
+.hero .stat .stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--brand);
+    line-height: 1.1;
+}
+
+/* ---------- Stepper "Cara Kerja" (bukan 3 kartu identik) ---------- */
+.stepper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+@media (min-width: 768px) {
+    .stepper { grid-template-columns: 1fr 1fr 1fr; }
+    .stepper .step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 1.35rem;
+        left: calc(50% + 2rem);
+        right: calc(-50% + 2rem);
+        border-top: 2px dashed var(--border);
+    }
+}
+.stepper .step {
+    position: relative;
+    text-align: center;
+    padding: 0 .5rem;
+}
+.stepper .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 50%;
+    background: var(--brand-subtle);
+    color: var(--brand-emphasis);
+    font-weight: 700;
+    border: 2px solid var(--brand);
+    margin-bottom: .6rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Kartu & tabel ---------- */
+.card {
+    border: 1px solid var(--border);
+    border-radius: var(--bs-border-radius);
+    background: var(--card);
+}
+.card-hover:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 14px rgba(28, 25, 23, .08);
+}
+
+.table > :not(caption) > * > * { vertical-align: middle; }
+
+.menu-thumb {
+    width: 64px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: .375rem;
+}
+
+/* Footer */
+.footer-app {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+}
+
+/* Hormati preferensi gerak minimal */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ---------- Cetak (invoice) ---------- */
+@media print {
+    .no-print, .navbar, footer, .skip-link { display: none !important; }
+    body { background: #fff; }
+    .card { border: none; box-shadow: none; }
+    .hero { border: none; }
+}

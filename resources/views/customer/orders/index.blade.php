@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-        <h1 class="h4 fw-bold mb-0"><i class="bi bi-clock-history me-1 text-success"></i>Order Saya</h1>
-        <a href="{{ route('customer.caterings.index') }}" class="btn btn-success btn-sm">
+        <h1 class="h4 fw-bold mb-0"><i class="bi bi-clock-history me-1 text-brand"></i>Order Saya</h1>
+        <a href="{{ route('customer.caterings.index') }}" class="btn btn-brand btn-sm">
             <i class="bi bi-plus-lg me-1"></i>Order Baru
         </a>
     </div>
@@ -58,7 +58,7 @@
                                 @endif
                             </td>
                             <td class="text-end">
-                                <a href="{{ route('customer.orders.show', $order) }}" class="btn btn-sm btn-outline-success">
+                                <a href="{{ route('customer.orders.show', $order) }}" class="btn btn-sm btn-outline-brand">
                                     Detail <i class="bi bi-chevron-right"></i>
                                 </a>
                             </td>

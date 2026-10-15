@@ -7,31 +7,25 @@
     {{-- Bootstrap 5 via CDN: UI responsif tanpa build step (Vite/npm tidak dipakai) --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f5f6f8; }
-        .navbar-brand { font-weight: 700; letter-spacing: .3px; }
-        .card { border: 1px solid rgba(0, 0, 0, .08); }
-        .table > :not(caption) > * > * { vertical-align: middle; }
-        footer { background: #fff; }
-        .menu-thumb { width: 64px; height: 48px; object-fit: cover; border-radius: .375rem; }
-        @media print {
-            .no-print, .navbar, footer { display: none !important; }
-            body { background: #fff; }
-            .card { border: none; box-shadow: none; }
-        }
-    </style>
+    {{-- Google Fonts: Karla (UI) + Playfair Display SC (wordmark & hero saja) --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+    {{-- Design tokens & brand layer (public/css/app.css) --}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="d-flex flex-column min-vh-100">
+    <a href="#konten" class="skip-link">Langsung ke konten</a>
     @include('partials.navbar')
 
-    <main class="container py-4 flex-grow-1">
+    <main id="konten" class="container py-4 flex-grow-1">
         @include('partials.flash')
         @yield('content')
     </main>
 
-    <footer class="border-top py-3 no-print">
+    <footer class="footer-app py-3 no-print">
         <div class="container d-flex flex-wrap justify-content-between gap-2 small text-muted">
-            <span>Marketplace Katering — menghubungkan katering &amp; kantor.</span>
+            <span>Marketplace Katering · menghubungkan katering &amp; kantor.</span>
             <span>Dito Firmansyach</span>
         </div>
     </footer>

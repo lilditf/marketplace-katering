@@ -17,13 +17,13 @@
                         <div class="btn-group w-100 mb-4" role="group" aria-label="Jenis pendaftaran">
                             <input type="radio" class="btn-check" name="role" id="roleCustomer"
                                    value="customer" autocomplete="off" @checked(old('role', $role) === 'customer')>
-                            <label class="btn btn-outline-success py-2" for="roleCustomer">
+                            <label class="btn btn-outline-brand py-2" for="roleCustomer">
                                 <i class="bi bi-building me-1"></i>Kantor (Customer)
                             </label>
 
                             <input type="radio" class="btn-check" name="role" id="roleMerchant"
                                    value="merchant" autocomplete="off" @checked(old('role', $role) === 'merchant')>
-                            <label class="btn btn-outline-success py-2" for="roleMerchant">
+                            <label class="btn btn-outline-brand py-2" for="roleMerchant">
                                 <i class="bi bi-shop me-1"></i>Katering (Merchant)
                             </label>
                         </div>
@@ -47,7 +47,7 @@
                                     <label for="cuisine_type" class="form-label">Jenis Makanan <span class="text-danger">*</span></label>
                                     <select class="form-select @error('cuisine_type') is-invalid @enderror"
                                             id="cuisine_type" name="cuisine_type">
-                                        <option value="">— Pilih jenis —</option>
+                                        <option value="">Pilih jenis</option>
                                         @foreach ($cuisineTypes as $type)
                                             <option value="{{ $type }}" @selected(old('cuisine_type') === $type)>{{ $type }}</option>
                                         @endforeach
@@ -123,7 +123,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100 py-2 mt-4">
+                        <button type="submit" class="btn btn-brand w-100 py-2 mt-4">
                             <i class="bi bi-person-plus me-1"></i>Daftar Sekarang
                         </button>
                     </form>

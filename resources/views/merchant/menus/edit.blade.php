@@ -14,7 +14,7 @@
 
             <div class="card shadow-sm">
                 <div class="card-header bg-white fw-semibold">
-                    <i class="bi bi-pencil-square me-1 text-success"></i>Edit Menu
+                    <i class="bi bi-pencil-square me-1 text-brand"></i>Edit Menu
                 </div>
                 <div class="card-body p-4">
                     {{-- PUT disimulasikan via _method karena form HTML hanya mengenal GET/POST --}}
@@ -24,7 +24,7 @@
                         @include('merchant.menus._form', ['menu' => $menu])
 
                         <div class="d-flex gap-2 mt-4">
-                            <button type="submit" class="btn btn-success px-4">
+                            <button type="submit" class="btn btn-brand px-4">
                                 <i class="bi bi-save me-1"></i>Simpan Perubahan
                             </button>
                             <a href="{{ route('merchant.menus.index') }}" class="btn btn-outline-secondary">Batal</a>

@@ -36,7 +36,7 @@
                             <label class="form-check-label" for="remember">Ingat saya</label>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100 py-2">
+                        <button type="submit" class="btn btn-brand w-100 py-2">
                             <i class="bi bi-box-arrow-in-right me-1"></i>Masuk
                         </button>
                     </form>

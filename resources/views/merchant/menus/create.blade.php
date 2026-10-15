@@ -14,7 +14,7 @@
 
             <div class="card shadow-sm">
                 <div class="card-header bg-white fw-semibold">
-                    <i class="bi bi-plus-circle me-1 text-success"></i>Tambah Menu Baru
+                    <i class="bi bi-plus-circle me-1 text-brand"></i>Tambah Menu Baru
                 </div>
                 <div class="card-body p-4">
                     {{-- enctype multipart wajib untuk upload foto --}}
@@ -23,7 +23,7 @@
                         @include('merchant.menus._form', ['menu' => null])
 
                         <div class="d-flex gap-2 mt-4">
-                            <button type="submit" class="btn btn-success px-4">
+                            <button type="submit" class="btn btn-brand px-4">
                                 <i class="bi bi-save me-1"></i>Simpan Menu
                             </button>
                             <a href="{{ route('merchant.menus.index') }}" class="btn btn-outline-secondary">Batal</a>

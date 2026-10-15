@@ -47,7 +47,7 @@
                     <div><span class="text-muted">Tanggal:</span>
                         <span class="fw-semibold">{{ $order->delivery_date->translatedFormat('l, d F Y') }}</span></div>
                     <div class="mt-1"><span class="text-muted">Catatan:</span>
-                        {{ $order->notes ?: '—' }}</div>
+                        {{ $order->notes ?: '-' }}</div>
                     <div class="mt-1 text-muted">Dipesan: {{ $order->created_at->translatedFormat('d M Y, H:i') }} WIB</div>
                 </div>
             </div>
@@ -62,12 +62,12 @@
                             @method('PATCH')
                             <label for="status" class="form-label small text-muted">Status berikutnya</label>
                             <select class="form-select mb-2" id="status" name="status" required>
-                                <option value="">— Pilih status —</option>
+                                <option value="">Pilih status</option>
                                 @foreach ($allowedNext as $next)
                                     <option value="{{ $next }}">{{ \App\Models\Order::STATUS_LABELS[$next] }}</option>
                                 @endforeach
                             </select>
-                            <button type="submit" class="btn btn-success btn-sm w-100">Perbarui Status</button>
+                            <button type="submit" class="btn btn-brand btn-sm w-100">Perbarui Status</button>
                         </form>
                     @else
                         <p class="small text-muted mb-0">
