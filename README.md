@@ -44,7 +44,8 @@ Non-fungsional
 - Laravel 12, PHP 8.2+
 - MySQL 8
 - Blade + Bootstrap 5.3 via CDN (tanpa build step), Bootstrap Icons
-- Layer CSS kustom: `public/css/app.css` (design tokens, satu warna aksen)
+- Layer CSS kustom: `public/css/app.css` (deep emerald, saffron, warm cream;
+  komponen responsif dan aksesibel)
 
 ## Cara Menjalankan
 
@@ -66,6 +67,9 @@ php artisan migrate:fresh --seed
 
 # 5. Link storage untuk foto menu
 php artisan storage:link
+
+# Opsional: buat ulang ilustrasi menu demo tanpa mengubah database
+php artisan app:regenerate-menu-images
 
 # 6. Jalankan
 php artisan serve
@@ -115,6 +119,31 @@ resources/views/                 Blade (layouts, partials, kedua portal, errors)
 public/css/app.css               design tokens & komponen brand
 tests/Feature/MarketplaceFlowTest.php
 ```
+
+## Penambahan di Luar Spesifikasi
+
+Spesifikasi mempersilakan kreativitas untuk hal yang tidak diatur. Penambahan
+yang saya buat, beserta alasannya:
+
+- Alur status order 5 tahap (pending, dikonfirmasi, dikirim, selesai,
+  dibatalkan). Spek hanya menyebut "melihat pesanan"; tanpa status, merchant
+  dan kantor tidak punya gambaran progres pesanan.
+- Status pembayaran invoice (belum_lunas/lunas) + aksi "Tandai Lunas" oleh
+  merchant. Invoice tanpa status bayar hanya selembar rincian harga.
+- Toggle "Tersedia" pada menu. Menu yang sudah pernah dipesan tidak bisa
+  dihapus (integritas invoice), jadi disediakan cara menyembunyikannya
+  dari katalog tanpa menghapus data.
+- Dashboard statistik: omzet bulan ini & menu terlaris (merchant), order
+  aktif & total transaksi (kantor). Ringkasan ini hal pertama yang dibutuhkan
+  saat membuka portal.
+- Kategori menu (Makanan Berat/Ringan/Minuman/Paket) + pengurutan hasil
+  pencarian. Membantu kantor memindai katalog dengan cepat.
+- Batas tanggal pengiriman (minimal besok, maksimal 6 bulan) + catatan order
+  (mis. "tanpa sambal untuk 10 porsi") — kebutuhan nyata pemesanan katering.
+- Nomor order/invoice berformat ORD-/INV- tanggal + urut, memudahkan rujukan
+  saat komunikasi kedua pihak.
+- Throttle login 5x/menit per email+IP, sebagai bagian dari "keamanan login"
+  yang diminta petunjuk pengerjaan.
 
 ## Catatan Keputusan Desain
 
