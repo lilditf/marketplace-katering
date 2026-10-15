@@ -8,6 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Halaman beranda publik: pengantar dua portal + statistik marketplace
+ * (jumlah katering, menu, kota) dan contoh menu unggulan.
+ */
 class HomeController extends Controller
 {
     /**
@@ -30,6 +34,16 @@ class HomeController extends Controller
             ->orderBy('city')
             ->pluck('city');
 
-        return view('home', compact('merchantCount', 'menuCount', 'cities'));
+        // Contoh produk nyata membuat halaman depan langsung terasa sebagai
+        // marketplace, bukan sekadar company profile.
+        $featuredMenus = Menu::query()
+            ->available()
+            ->whereHas('merchantProfile', fn ($query) => $query->where('is_active', true))
+            ->with('merchantProfile:id,company_name')
+            ->orderBy('id')
+            ->limit(3)
+            ->get();
+
+        return view('home', compact('merchantCount', 'menuCount', 'cities', 'featuredMenus'));
     }
 }

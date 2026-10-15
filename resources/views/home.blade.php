@@ -1,112 +1,159 @@
 @extends('layouts.app')
 
-@section('title', 'Marketplace Katering — Pesan Makan Siang Kantor dari Katering Terpercaya')
+@section('title', 'Marketplace Katering — Makan Siang Kantor Jadi Lebih Mudah')
 
 @section('content')
-    {{-- Hero --}}
-    <div class="hero p-4 p-lg-5 mb-5">
-        <div class="row align-items-center g-4">
+    <section class="market-hero mb-4 mb-lg-5">
+        <div class="hero-glow hero-glow-one"></div>
+        <div class="hero-glow hero-glow-two"></div>
+
+        <div class="row align-items-center g-5 position-relative">
             <div class="col-lg-7">
-                <h1 class="h2 fw-bold mb-3">Makan siang kantor beres,<br>tanpa drama setiap hari.</h1>
-                <p class="lead text-muted mb-4">
-                    Marketplace Katering menghubungkan perusahaan katering dengan kantor yang
-                    karyawannya butuh makan siang. Pilih menu, tentukan jumlah porsi dan tanggal
-                    kirim, lalu invoice terbit otomatis untuk kedua pihak.
+                <div class="eyebrow mb-3">
+                    <i class="bi bi-stars"></i>
+                    Solusi makan siang untuk tim modern
+                </div>
+                <h1 class="hero-title mb-3">
+                    Makan siang kantor,<br>
+                    <span>beres tanpa repot.</span>
+                </h1>
+                <p class="hero-copy mb-4">
+                    Temukan katering tepercaya, pilih menu sesuai kebutuhan tim, atur tanggal
+                    pengiriman, dan dapatkan invoice otomatis dalam satu alur yang rapi.
                 </p>
-                <div class="d-flex flex-wrap gap-2">
-                    <a href="{{ route('register', ['role' => 'customer']) }}" class="btn btn-brand btn-lg px-4">
-                        <i class="bi bi-building me-1"></i>Daftar sebagai Kantor
+
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="{{ route('register', ['role' => 'customer']) }}" class="btn btn-accent btn-lg px-4">
+                        Mulai sebagai Kantor <i class="bi bi-arrow-right ms-1"></i>
                     </a>
-                    <a href="{{ route('register', ['role' => 'merchant']) }}" class="btn btn-outline-brand btn-lg px-4">
-                        <i class="bi bi-shop me-1"></i>Daftarkan Katering
+                    <a href="{{ route('register', ['role' => 'merchant']) }}" class="btn btn-hero-outline btn-lg px-4">
+                        <i class="bi bi-shop me-1"></i>Gabung sebagai Katering
                     </a>
                 </div>
+
+                <div class="hero-assurance d-flex flex-wrap gap-3 gap-md-4">
+                    <span><i class="bi bi-shield-check"></i> Akun aman</span>
+                    <span><i class="bi bi-receipt"></i> Invoice otomatis</span>
+                    <span><i class="bi bi-calendar2-check"></i> Jadwal fleksibel</span>
+                </div>
             </div>
+
             <div class="col-lg-5">
-                <div class="row g-3 text-center">
-                    <div class="col-4">
-                        <div class="stat">
-                            <div class="stat-value">{{ $merchantCount }}</div>
-                            <div class="small text-muted">Katering</div>
+                <div class="menu-showcase">
+                    @forelse ($featuredMenus as $index => $menu)
+                        <article class="showcase-card showcase-card-{{ $index + 1 }}">
+                            <img src="{{ asset('storage/'.$menu->photo_path) }}"
+                                 alt="{{ $menu->name }} dari {{ $menu->merchantProfile->company_name }}">
+                            <div class="showcase-content">
+                                <div class="showcase-category">{{ $menu->category }}</div>
+                                <h2>{{ $menu->name }}</h2>
+                                <div class="d-flex justify-content-between align-items-end gap-2">
+                                    <span>{{ $menu->merchantProfile->company_name }}</span>
+                                    <strong>Rp{{ number_format((float) $menu->price, 0, ',', '.') }}</strong>
+                                </div>
+                            </div>
+                        </article>
+                    @empty
+                        <div class="showcase-empty">
+                            <i class="bi bi-basket2"></i>
+                            <span>Menu pilihan akan tampil di sini.</span>
                         </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stat">
-                            <div class="stat-value">{{ $menuCount }}</div>
-                            <div class="small text-muted">Menu</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stat">
-                            <div class="stat-value">{{ $cities->count() }}</div>
-                            <div class="small text-muted">Kota</div>
-                        </div>
+                    @endforelse
+                    <div class="showcase-note">
+                        <span class="showcase-note-icon"><i class="bi bi-check2"></i></span>
+                        <span><strong>Siap dipesan</strong><small>Menu aktif dari merchant</small></span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    {{-- Cara kerja: stepper proses, bukan kartu generik --}}
-    <h2 class="h4 fw-bold text-center mb-4">Cara Kerja</h2>
-    <div class="stepper mb-5">
-        <div class="step">
-            <div class="step-number">1</div>
-            <h3 class="h6 fw-bold">Daftar &amp; Login</h3>
-            <p class="small text-muted mb-0">
-                Kantor mendaftar sebagai customer, perusahaan katering sebagai merchant.
-                Lengkapi profil, lalu masuk ke portal masing-masing.
-            </p>
+    <section class="market-stats mb-5" aria-label="Ringkasan marketplace">
+        <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true"><i class="bi bi-shop-window"></i></span>
+            <div class="stat-copy"><strong>{{ $merchantCount }}</strong><span>Katering aktif</span></div>
         </div>
-        <div class="step">
-            <div class="step-number">2</div>
-            <h3 class="h6 fw-bold">Cari &amp; Pesan</h3>
-            <p class="small text-muted mb-0">
-                Cari katering berdasarkan lokasi dan jenis makanan. Pilih menu, tentukan
-                jumlah porsi dan tanggal pengiriman.
-            </p>
+        <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true"><i class="bi bi-grid"></i></span>
+            <div class="stat-copy"><strong>{{ $menuCount }}</strong><span>Pilihan menu</span></div>
         </div>
-        <div class="step">
-            <div class="step-number">3</div>
-            <h3 class="h6 fw-bold">Invoice Otomatis</h3>
-            <p class="small text-muted mb-0">
-                Setiap pembelian menerbitkan invoice yang bisa diakses kantor maupun
-                katering, lengkap dengan rincian menu dan total biaya.
-            </p>
+        <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
+            <div class="stat-copy"><strong>{{ $cities->count() }}</strong><span>Kota tersedia</span></div>
         </div>
-    </div>
+        <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true"><i class="bi bi-receipt-cutoff"></i></span>
+            <div class="stat-copy"><strong>Otomatis</strong><span>Pesanan &amp; invoice</span></div>
+        </div>
+    </section>
 
-    {{-- Dua portal --}}
-    <div class="row g-3">
-        <div class="col-md-6">
-            <div class="card card-hover h-100">
-                <div class="card-body p-4">
-                    <h2 class="h5 fw-bold"><i class="bi bi-shop text-brand me-2"></i>Portal Katering (Merchant)</h2>
-                    <ul class="small text-muted mb-3 ps-3">
-                        <li>Kelola profil perusahaan katering.</li>
-                        <li>Tambah, ubah, dan hapus menu lengkap dengan foto dan harga.</li>
-                        <li>Pantau semua pesanan &amp; invoice yang masuk, perbarui status order.</li>
-                    </ul>
-                    <a href="{{ route('register', ['role' => 'merchant']) }}" class="btn btn-outline-brand btn-sm">
-                        Daftarkan Katering <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
+    <section class="mb-5">
+        <div class="section-heading text-center mx-auto mb-4">
+            <span class="section-kicker">Cara kerjanya</span>
+            <h2>Sederhana untuk kantor, jelas untuk katering</h2>
+            <p>Setiap langkah dibuat singkat agar tim Anda bisa fokus pada pekerjaan, bukan administrasi makan siang.</p>
+        </div>
+
+        <div class="journey-grid">
+            <article class="journey-card">
+                <div class="journey-topline"><span>01</span><i class="bi bi-person-plus"></i></div>
+                <h3>Daftar sesuai peran</h3>
+                <p>Kantor dan katering memiliki portal masing-masing dengan fungsi yang relevan.</p>
+            </article>
+            <article class="journey-card">
+                <div class="journey-topline"><span>02</span><i class="bi bi-search"></i></div>
+                <h3>Temukan dan pilih menu</h3>
+                <p>Filter berdasarkan kota dan jenis makanan, lalu tentukan menu serta jumlah porsi.</p>
+            </article>
+            <article class="journey-card">
+                <div class="journey-topline"><span>03</span><i class="bi bi-receipt-cutoff"></i></div>
+                <h3>Pantau dalam satu tempat</h3>
+                <p>Order, status pengiriman, dan invoice dapat diakses oleh kedua pihak secara transparan.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="portal-section mb-3">
+        <div class="section-heading mb-4">
+            <span class="section-kicker">Dua portal, satu ekosistem</span>
+            <h2>Dirancang untuk kebutuhan setiap pihak</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <article class="portal-card portal-merchant h-100">
+                    <div class="portal-icon"><i class="bi bi-shop"></i></div>
+                    <div>
+                        <span class="portal-label">Untuk Merchant</span>
+                        <h3>Kelola bisnis katering lebih teratur</h3>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle"></i>Kelola profil dan ketersediaan menu</li>
+                            <li><i class="bi bi-check2-circle"></i>Terima order lengkap dengan rincian porsi</li>
+                            <li><i class="bi bi-check2-circle"></i>Pantau status order dan pembayaran invoice</li>
+                        </ul>
+                        <a href="{{ route('register', ['role' => 'merchant']) }}" class="btn btn-outline-brand">
+                            Daftarkan Katering <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-6">
+                <article class="portal-card portal-customer h-100">
+                    <div class="portal-icon"><i class="bi bi-buildings"></i></div>
+                    <div>
+                        <span class="portal-label">Untuk Customer</span>
+                        <h3>Pesan makan siang kantor tanpa ribet</h3>
+                        <ul class="feature-list">
+                            <li><i class="bi bi-check2-circle"></i>Cari katering berdasarkan lokasi dan jenis makanan</li>
+                            <li><i class="bi bi-check2-circle"></i>Pilih beberapa menu dan jadwal pengiriman</li>
+                            <li><i class="bi bi-check2-circle"></i>Akses riwayat order dan invoice kapan saja</li>
+                        </ul>
+                        <a href="{{ route('register', ['role' => 'customer']) }}" class="btn btn-brand">
+                            Daftar sebagai Kantor <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </article>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card card-hover h-100">
-                <div class="card-body p-4">
-                    <h2 class="h5 fw-bold"><i class="bi bi-building text-brand me-2"></i>Portal Kantor (Customer)</h2>
-                    <ul class="small text-muted mb-3 ps-3">
-                        <li>Cari katering berdasarkan kota dan jenis makanan.</li>
-                        <li>Pesan menu dengan jumlah porsi dan tanggal pengiriman.</li>
-                        <li>Akses invoice &amp; pantau status pesanan kapan saja.</li>
-                    </ul>
-                    <a href="{{ route('register', ['role' => 'customer']) }}" class="btn btn-brand btn-sm">
-                        Daftar sebagai Kantor <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 @endsection

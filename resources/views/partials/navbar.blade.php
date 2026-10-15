@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light navbar-app no-print">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-app no-print">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             <i class="bi bi-basket2-fill me-1"></i>Marketplace Katering

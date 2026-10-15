@@ -7,10 +7,10 @@
     {{-- Bootstrap 5 via CDN: UI responsif tanpa build step (Vite/npm tidak dipakai) --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    {{-- Google Fonts: Karla (UI) + Playfair Display SC (wordmark & hero saja) --}}
+    {{-- Tipografi: Plus Jakarta Sans untuk UI, Fraunces untuk aksen kuliner. --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Playfair+Display+SC:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     {{-- Design tokens & brand layer (public/css/app.css) --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -23,10 +23,13 @@
         @yield('content')
     </main>
 
-    <footer class="footer-app py-3 no-print">
-        <div class="container d-flex flex-wrap justify-content-between gap-2 small text-muted">
-            <span>Marketplace Katering · menghubungkan katering &amp; kantor.</span>
-            <span>Dito Firmansyach</span>
+    <footer class="footer-app py-4 no-print">
+        <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3 small">
+            <div>
+                <div class="footer-brand"><i class="bi bi-basket2-fill me-1"></i>Marketplace Katering</div>
+                <div class="footer-copy">Makan siang kantor lebih teratur, dari pemesanan sampai invoice.</div>
+            </div>
+            <span class="footer-copy">Dito Firmansyach</span>
         </div>
     </footer>
 

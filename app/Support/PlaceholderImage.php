@@ -3,80 +3,80 @@
 namespace App\Support;
 
 /**
- * Generator foto placeholder menggunakan ekstensi GD (bawaan PHP).
+ * Generator ilustrasi menu menggunakan ekstensi GD bawaan PHP.
  *
- * Foto menu pada data seed dibuat sendiri secara programatik — bukan aset
- * pihak ketiga — sehingga repository tetap memenuhi ketentuan
- * "semua karya asli" dan tidak bergantung pada lisensi gambar eksternal.
+ * Aset seed dibuat secara programatik agar repository tidak bergantung pada
+ * foto atau template pihak ketiga.
  */
 class PlaceholderImage
 {
     /**
-     * Buat file JPG 640x400: latar warna solid sesuai kategori, "piring"
-     * dekoratif di tengah, dan judul menu di bagian bawah.
-     *
-     * @param  string  $absolutePath  Path lengkap file tujuan.
-     * @param  string  $title         Judul menu yang digambar.
-     * @param  string  $hexBg         Warna latar format #RRGGBB.
+     * Buat ilustrasi menu JPG 640x400.
      */
-    public static function make(string $absolutePath, string $title, string $hexBg): void
+    public static function make(string $absolutePath, string $title, string $hexBg, bool $overwrite = false): void
     {
-        if (is_file($absolutePath)) {
-            return; // idempoten: tidak menimpa foto yang sudah ada.
+        if (is_file($absolutePath) && ! $overwrite) {
+            return;
         }
 
-        $w = 640;
-        $h = 400;
+        $width = 640;
+        $height = 400;
+        $image = imagecreatetruecolor($width, $height);
+        imageantialias($image, true);
 
-        $img = imagecreatetruecolor($w, $h);
-        [$r, $g, $b] = sscanf($hexBg, '#%02x%02x%02x');
+        [$red, $green, $blue] = sscanf($hexBg, '#%02x%02x%02x');
 
-        $bg = imagecolorallocate($img, $r, $g, $b);
-        imagefilledrectangle($img, 0, 0, $w, $h, $bg);
-
-        // Piring putih + lingkaran dalam semi-transparan.
-        $white = imagecolorallocate($img, 255, 255, 255);
-        imagefilledellipse($img, intdiv($w, 2), intdiv($h, 2) - 30, 230, 230, $white);
-        $inner = imagecolorallocatealpha($img, $r, $g, $b, 60);
-        imagefilledellipse($img, intdiv($w, 2), intdiv($h, 2) - 30, 165, 165, $inner);
-
-        $dark = imagecolorallocate($img, 45, 32, 26);
-
-        // Cari font TTF yang tersedia (Windows → Linux fallback).
-        $font = null;
-        foreach ([
-            'C:/Windows/Fonts/arialbd.ttf',
-            'C:/Windows/Fonts/arial.ttf',
-            '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-        ] as $candidate) {
-            if (is_file($candidate)) {
-                $font = $candidate;
-                break;
-            }
+        // Gradien hangat sebagai alas meja.
+        for ($y = 0; $y < $height; $y++) {
+            $factor = $y / $height;
+            $line = imagecolorallocate(
+                $image,
+                min(255, (int) ($red + 24 * $factor)),
+                min(255, (int) ($green + 18 * $factor)),
+                min(255, (int) ($blue + 10 * $factor))
+            );
+            imageline($image, 0, $y, $width, $y, $line);
         }
 
-        if ($font !== null) {
-            // Perkecil ukuran huruf bila judul terlalu lebar.
-            $size = 30;
-            $box = imagettfbbox($size, 0, $font, $title);
-            $tw = abs($box[2] - $box[0]);
-            while ($tw > $w - 40 && $size > 14) {
-                $size -= 2;
-                $box = imagettfbbox($size, 0, $font, $title);
-                $tw = abs($box[2] - $box[0]);
-            }
-            imagettftext($img, $size, 0, intdiv($w - $tw, 2), $h - 50, $dark, $font, $title);
-        } else {
-            // Fallback font bitmap bawaan GD (selalu tersedia).
-            $tw = strlen($title) * imagefontwidth(5);
-            imagestring($img, 5, max(5, intdiv($w - $tw, 2)), $h - 70, $title, $dark);
-        }
+        // Motif latar dan bayangan piring.
+        $pattern = imagecolorallocatealpha($image, 255, 255, 255, 105);
+        imagefilledellipse($image, 70, 55, 170, 170, $pattern);
+        imagefilledellipse($image, 585, 360, 250, 250, $pattern);
 
-        // Watermark kecil di pojok kiri atas.
-        $markColor = imagecolorallocatealpha($img, 255, 255, 255, 60);
-        imagestring($img, 2, 12, 12, 'Marketplace Katering - foto placeholder', $markColor);
+        $shadow = imagecolorallocatealpha($image, 28, 38, 33, 82);
+        imagefilledellipse($image, 326, 218, 330, 245, $shadow);
 
-        imagejpeg($img, $absolutePath, 82);
-        imagedestroy($img);
+        $white = imagecolorallocate($image, 250, 248, 240);
+        $rim = imagecolorallocate($image, 228, 225, 213);
+        imagefilledellipse($image, 320, 200, 330, 245, $white);
+        imagefilledellipse($image, 320, 200, 275, 195, $rim);
+        imagefilledellipse($image, 320, 200, 258, 179, $white);
+
+        // Komposisi makanan bervariasi tetapi deterministik berdasarkan nama.
+        $seed = abs(crc32($title));
+        $proteinPalette = [
+            [151, 72, 43],
+            [184, 95, 48],
+            [116, 73, 52],
+            [207, 122, 51],
+        ];
+        $proteinRgb = $proteinPalette[$seed % count($proteinPalette)];
+        $protein = imagecolorallocate($image, ...$proteinRgb);
+        $rice = imagecolorallocate($image, 246, 239, 216);
+        $leaf = imagecolorallocate($image, 68, 130, 83);
+        $leafLight = imagecolorallocate($image, 119, 166, 83);
+        $sauce = imagecolorallocate($image, 111, 56, 35);
+
+        imagefilledellipse($image, 270, 185, 118, 98, $rice);
+        imagefilledellipse($image, 365, 205, 105, 72, $protein);
+        imagefilledellipse($image, 366, 184, 82, 46, $protein);
+        imagefilledellipse($image, 258, 230, 35, 28, $leaf);
+        imagefilledellipse($image, 287, 238, 38, 25, $leafLight);
+        imagefilledellipse($image, 307, 226, 28, 23, $leaf);
+        imageline($image, 336, 179, 397, 212, $sauce);
+        imageline($image, 340, 170, 398, 201, $sauce);
+
+        imagejpeg($image, $absolutePath, 88);
+        imagedestroy($image);
     }
 }
