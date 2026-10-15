@@ -24,14 +24,34 @@
     <a href="#konten" class="skip-link">Langsung ke konten</a>
 
     <div class="portal-shell">
-        {{-- Sidebar fixed untuk desktop (lg ke atas); mobile memakai bottom nav --}}
+        {{-- Sidebar fixed untuk desktop (lg ke atas) --}}
         <aside class="portal-sidebar d-none d-lg-flex no-print">
             @include('partials.sidebar')
         </aside>
 
+        {{-- Sidebar versi mobile: offcanvas yang dibuka lewat hamburger --}}
+        <div class="offcanvas offcanvas-start portal-offcanvas d-lg-none" tabindex="-1"
+             id="portalSidebar" aria-label="Menu portal">
+            <div class="offcanvas-header">
+                <span class="sidebar-brand mb-0 pb-0 border-0">
+                    <i class="bi bi-basket2-fill"></i>Marketplace Katering
+                </span>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup menu"></button>
+            </div>
+            <div class="offcanvas-body p-0 d-flex flex-column">
+                @include('partials.sidebar')
+            </div>
+        </div>
+
         <div class="portal-main">
-            {{-- Topbar: judul halaman + menu user (tanpa hamburger) --}}
+            {{-- Topbar: hamburger (mobile) + judul halaman + menu user --}}
             <header class="portal-topbar no-print">
+                <button class="btn btn-sm btn-outline-brand d-lg-none portal-burger" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#portalSidebar"
+                        aria-controls="portalSidebar" aria-label="Buka menu">
+                    <i class="bi bi-list"></i>
+                </button>
+
                 {{-- Judul topbar diambil dari @section('title') tiap halaman
                      (bagian sebelum " — "), tanpa perlu mengubah view anak. --}}
                 @php($pageTitle = \Illuminate\Support\Str::before(trim($__env->yieldContent('title')), ' — '))
@@ -68,9 +88,6 @@
             </main>
         </div>
     </div>
-
-    {{-- Bottom nav mobile (pengganti hamburger) --}}
-    @include('partials.bottomnav')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
