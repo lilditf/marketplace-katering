@@ -9,12 +9,12 @@
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <form method="GET" action="{{ route('customer.caterings.index') }}" class="row g-2 align-items-end">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <label for="q" class="form-label small text-muted mb-1">Kata kunci</label>
                     <input type="text" class="form-control" id="q" name="q" value="{{ $keyword }}"
                            placeholder="Nama katering, deskripsi, atau kota…">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="city" class="form-label small text-muted mb-1">Lokasi (kota)</label>
                     <select class="form-select" id="city" name="city">
                         <option value="">Semua kota</option>
@@ -23,7 +23,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="cuisine" class="form-label small text-muted mb-1">Jenis makanan</label>
                     <select class="form-select" id="cuisine" name="cuisine">
                         <option value="">Semua jenis</option>
@@ -32,8 +32,16 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-1 d-grid">
-                    <button type="submit" class="btn btn-brand" title="Cari"><i class="bi bi-search"></i></button>
+                <div class="col-md-2">
+                    <label for="sort" class="form-label small text-muted mb-1">Urutkan</label>
+                    <select class="form-select" id="sort" name="sort">
+                        <option value="nama" @selected($sort === 'nama')>Nama (A-Z)</option>
+                        <option value="kota" @selected($sort === 'kota')>Kota, lalu nama</option>
+                        <option value="menu" @selected($sort === 'menu')>Menu tersedia terbanyak</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-brand"><i class="bi bi-search me-1"></i>Cari</button>
                 </div>
             </form>
             @if ($keyword || $city || $cuisine)

@@ -44,8 +44,48 @@
                     <p class="text-center small text-muted mt-3 mb-0">
                         Belum punya akun? <a href="{{ route('register') }}" class="fw-semibold">Daftar sekarang</a>
                     </p>
+
+                    @if ($demoAccounts->isNotEmpty())
+                        <hr class="my-3">
+                        <details>
+                            <summary class="small text-muted">Akun demo</summary>
+                            <div class="table-responsive mt-2 mb-2">
+                                <table class="table table-sm small mb-0 align-middle">
+                                    <tbody>
+                                        @foreach ($demoAccounts as $account)
+                                            <tr>
+                                                <td class="text-muted text-nowrap">
+                                                    {{ ['merchant' => 'Katering', 'customer' => 'Kantor', 'admin' => 'Admin'][$account->role] ?? $account->role }}
+                                                </td>
+                                                <td class="text-end">
+                                                    <button type="button" class="btn btn-sm btn-outline-brand demo-account"
+                                                            data-email="{{ $account->email }}">{{ $account->email }}</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="small text-muted mb-0">
+                                Klik email untuk mengisi form. Password semua akun demo: <code>password</code>.
+                            </p>
+                        </details>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        // Klik akun demo mengisi email + password langsung ke form.
+        document.querySelectorAll('.demo-account').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.getElementById('email').value = btn.dataset.email;
+                document.getElementById('password').value = 'password';
+                document.getElementById('email').focus();
+            });
+        });
+    </script>
+@endpush

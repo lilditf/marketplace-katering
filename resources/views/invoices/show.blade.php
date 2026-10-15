@@ -113,7 +113,7 @@
                                           onsubmit="return confirm('Tandai invoice {{ $invoice->invoice_number }} LUNAS?');">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-brand btn-sm">
+                                        <button type="submit" class="btn btn-brand">
                                             <i class="bi bi-check2-circle me-1"></i>Tandai Lunas
                                         </button>
                                     </form>

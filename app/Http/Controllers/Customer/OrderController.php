@@ -23,12 +23,14 @@ class OrderController extends Controller
 {
     /**
      * Form pemesanan pada halaman katering tertentu.
+     * Parameter ?menu= (dari tombol "Pesan Menu Ini" di detail katering)
+     * mengisi otomatis 1 porsi untuk menu itu sebagai titik mulai.
      */
-    public function create(MerchantProfile $catering): View
+    public function create(Request $request, MerchantProfile $catering): View
     {
         abort_unless($catering->is_active, 404);
 
-        $customer = request()->user()->customerProfile;
+        $customer = $request->user()->customerProfile;
 
         $menus = $catering->menus()
             ->available()
@@ -36,7 +38,12 @@ class OrderController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('customer.orders.create', compact('catering', 'customer', 'menus'));
+        // Menu yang diminta hanya diangkat bila memang milik katering ini
+        // dan masih tersedia — mencegah prapilih menu katering lain.
+        $requestedMenuId = (int) $request->query('menu', 0);
+        $selectedMenuId = $menus->contains('id', $requestedMenuId) ? $requestedMenuId : null;
+
+        return view('customer.orders.create', compact('catering', 'customer', 'menus', 'selectedMenuId'));
     }
 
     /**

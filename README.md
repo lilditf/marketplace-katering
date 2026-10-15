@@ -26,6 +26,7 @@ Portal Customer (Kantor)
 
 - Registrasi & login khusus kantor
 - Pencarian katering: kata kunci, filter kota, filter jenis makanan, urutkan
+  (nama, kota, atau menu tersedia terbanyak)
 - Detail katering beserta daftar menu
 - Pemesanan: pilih menu, jumlah porsi per menu, tanggal pengiriman, catatan
 - Riwayat order + akses invoice (print-friendly)
@@ -116,12 +117,14 @@ Semua akun memakai password: `password`
 php artisan test
 ```
 
-22 feature/unit test mencakup: registrasi + hashing password, batas akses antar
+27 feature/unit test mencakup: registrasi + hashing password, batas akses antar
 role & antar tenant, total order dari harga database, pembuatan invoice atomik,
 penolakan order lintas merchant, penolakan upload file non-gambar/oversize,
-escaping XSS, penolakan tanggal lampau, throttle login, batas porsi, plus alur
-admin (akses portal, larangan registrasi admin, kelola jenis makanan,
-nonaktifkan katering, redirect login per role).
+escaping XSS, penolakan tanggal lampau, throttle login, batas porsi, urutan
+hasil pencarian (termasuk penolakan kunci sort asing), prapilih menu dari
+detail katering, aksi tandai lunas dari detail order, plus alur admin (akses
+portal, larangan registrasi admin, kelola jenis makanan, nonaktifkan katering,
+redirect login per role, daftar akun demo di halaman login).
 
 ## Struktur Singkat
 
@@ -157,7 +160,8 @@ yang saya buat, beserta alasannya:
   aktif & total transaksi (kantor). Ringkasan ini hal pertama yang dibutuhkan
   saat membuka portal.
 - Kategori menu (Makanan Berat/Ringan/Minuman/Paket) + pengurutan hasil
-  pencarian. Membantu kantor memindai katalog dengan cepat.
+  pencarian (nama, kota, atau jumlah menu). Membantu kantor memindai katalog
+  dengan cepat.
 - Batas tanggal pengiriman (minimal besok, maksimal 6 bulan) + catatan order
   (mis. "tanpa sambal untuk 10 porsi"), kebutuhan yang memang muncul di pemesanan katering.
 - Nomor order/invoice berformat ORD-/INV- tanggal + urut, memudahkan rujukan

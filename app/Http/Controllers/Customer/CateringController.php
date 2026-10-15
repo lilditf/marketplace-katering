@@ -10,11 +10,17 @@ use Illuminate\View\View;
 
 /**
  * Fitur C2 — Pencarian Katering (portal customer).
- * Daftar katering dengan filter keyword/kota/jenis makanan + urutan &
- * pagination, serta halaman detail katering sebagai katalog menu.
+ * Daftar katering dengan filter keyword/kota/jenis makanan, urutan pilihan
+ * user, dan pagination, serta halaman detail katering sebagai katalog menu.
  */
 class CateringController extends Controller
 {
+    /**
+     * Urutan hasil pencarian yang dikenal. Kunci di luar daftar ini
+     * ditolak dan jatuh kembali ke urutan nama (parameter asing diabaikan).
+     */
+    private const SORTS = ['nama', 'kota', 'menu'];
+
     /**
      * Pencarian katering: keyword bebas + filter kota + filter jenis makanan,
      * dengan pagination. Query dibangun lewat scope MerchantProfile::search()
@@ -25,10 +31,16 @@ class CateringController extends Controller
         $keyword = trim((string) $request->query('q', ''));
         $city = (string) $request->query('city', '');
         $cuisine = (string) $request->query('cuisine', '');
+        $sort = (string) $request->query('sort', 'nama');
 
         // Filter jenis makanan hanya diterima bila ada di whitelist.
         if (! in_array($cuisine, CuisineType::activeNames(), true)) {
             $cuisine = '';
+        }
+
+        // Urutan hanya diterima bila ada di whitelist.
+        if (! in_array($sort, self::SORTS, true)) {
+            $sort = 'nama';
         }
 
         $merchants = MerchantProfile::query()
@@ -37,7 +49,9 @@ class CateringController extends Controller
             ->withCount(['menus as available_menus_count' => function ($q) {
                 $q->where('is_available', true);
             }])
-            ->orderBy('company_name')
+            ->when($sort === 'menu', fn ($q) => $q->orderByDesc('available_menus_count')->orderBy('company_name'))
+            ->when($sort === 'kota', fn ($q) => $q->orderBy('city')->orderBy('company_name'))
+            ->when($sort === 'nama', fn ($q) => $q->orderBy('company_name'))
             ->paginate(9)
             ->withQueryString();
 
@@ -53,6 +67,7 @@ class CateringController extends Controller
             'keyword' => $keyword,
             'city' => $city,
             'cuisine' => $cuisine,
+            'sort' => $sort,
         ]);
     }
 

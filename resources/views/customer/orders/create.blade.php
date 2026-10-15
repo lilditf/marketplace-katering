@@ -16,6 +16,12 @@
         Pesan dari <strong>{{ $catering->company_name }}</strong> · {{ $catering->city }}.
         Isi jumlah porsi pada menu yang diinginkan (0 = tidak dipesan).
     </p>
+    @if ($selectedMenuId)
+        <p class="small mb-3 text-brand-emphasis">
+            <i class="bi bi-check2-circle me-1"></i>{{ $menus->firstWhere('id', $selectedMenuId)?->name }}
+            sudah terisi 1 porsi. Ubah jumlahnya bila perlu.
+        </p>
+    @endif
 
     <form method="POST" action="{{ route('customer.orders.store', $catering) }}" id="orderForm" novalidate>
         @csrf
@@ -56,7 +62,8 @@
                                         <td class="text-end small">Rp{{ number_format($menu->price, 0, ',', '.') }}</td>
                                         <td class="text-center">
                                             <input type="number" class="form-control form-control-sm qty-input text-center"
-                                                   min="0" max="10000" step="1" value="0"
+                                                   min="0" max="10000" step="1"
+                                                   value="{{ $selectedMenuId === $menu->id ? 1 : 0 }}"
                                                    data-menu-id="{{ $menu->id }}" data-price="{{ $menu->price }}"
                                                    aria-label="Jumlah porsi {{ $menu->name }}">
                                         </td>

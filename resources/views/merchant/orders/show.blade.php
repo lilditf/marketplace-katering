@@ -17,6 +17,20 @@
             @if ($order->invoice)
                 @include('partials.status-badge', ['status' => $order->invoice->payment_status])
             @endif
+
+            {{-- Aksi bayar langsung dari detail order: tanpa harus buka halaman
+                 invoice dulu. Hanya tampil selama invoice belum lunas. --}}
+            @if ($order->invoice && ! $order->invoice->isPaid())
+                <form method="POST" action="{{ route('merchant.invoices.markPaid', $order->invoice) }}"
+                      onsubmit="return confirm('Tandai invoice {{ $order->invoice->invoice_number }} LUNAS?');"
+                      class="no-print">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-brand btn-sm">
+                        <i class="bi bi-check2-circle me-1"></i>Tandai Lunas
+                    </button>
+                </form>
+            @endif
         </div>
     </div>
 

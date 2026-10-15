@@ -107,7 +107,16 @@ class AuthController extends Controller
 
     public function showLogin(): View
     {
-        return view('auth.login');
+        // Kotak akun demo hanya tampil bila akun contoh dari seeder memang
+        // ada (mis. instalasi tanpa seed tidak menampilkan email mati).
+        $demoEmails = ['sedap@katering.test', 'kantor@majujaya.test', 'admin@katering.test'];
+
+        $demoAccounts = User::whereIn('email', $demoEmails)
+            ->get(['email', 'role'])
+            ->sortBy(fn (User $user) => array_search($user->email, $demoEmails, true))
+            ->values();
+
+        return view('auth.login', compact('demoAccounts'));
     }
 
     public function login(Request $request): RedirectResponse

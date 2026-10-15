@@ -58,8 +58,8 @@
                             <p class="small text-muted mb-0">{{ $menu->description ?: 'Tanpa deskripsi.' }}</p>
                         </div>
                         <div class="card-footer bg-white border-0 pb-3">
-                            <a href="{{ route('customer.orders.create', $catering) }}"
-                               class="btn btn-sm btn-outline-brand w-100">Pilih untuk pesanan</a>
+                            <a href="{{ route('customer.orders.create', ['catering' => $catering, 'menu' => $menu->id]) }}"
+                               class="btn btn-sm btn-outline-brand w-100">Pesan Menu Ini</a>
                         </div>
                     </div>
                 </div>

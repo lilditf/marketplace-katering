@@ -112,6 +112,109 @@ class MarketplaceFlowTest extends TestCase
         $response->assertDontSee('Katering Pertama');
     }
 
+    public function test_catering_search_sorts_by_available_menus(): void
+    {
+        [$customerUser] = $this->createCustomer();
+        [, $merchantSedikit] = $this->createMerchant('Katering Sedikit');
+        [, $merchantBanyak] = $this->createMerchant('Katering Banyak');
+
+        // Katering Banyak punya dua menu tersedia, Katering Sedikit satu.
+        Menu::create([
+            'merchant_profile_id' => $merchantBanyak->id,
+            'name' => 'Nasi Kotak Tambahan',
+            'description' => 'Menu kedua untuk pengujian urutan.',
+            'price' => 20000,
+            'category' => 'Paket',
+            'is_available' => true,
+        ]);
+
+        $this->actingAs($customerUser)
+            ->get(route('customer.caterings.index', ['sort' => 'menu']))
+            ->assertOk()
+            ->assertSeeInOrder(['Katering Banyak', 'Katering Sedikit']);
+    }
+
+    public function test_catering_search_rejects_unknown_sort_key(): void
+    {
+        [$customerUser] = $this->createCustomer();
+        $this->createMerchant('Katering Alfa');
+        $this->createMerchant('Katering Beta');
+
+        // Sort di luar whitelist diabaikan: urutan tetap nama (A-Z).
+        $this->actingAs($customerUser)
+            ->get(route('customer.caterings.index', ['sort' => 'kolom-asing']))
+            ->assertOk()
+            ->assertSeeInOrder(['Katering Alfa', 'Katering Beta']);
+    }
+
+    public function test_order_form_preselects_menu_from_catering_detail(): void
+    {
+        [$customerUser] = $this->createCustomer();
+        [, $merchant, $menu] = $this->createMerchant();
+
+        $this->actingAs($customerUser)
+            ->get(route('customer.orders.create', ['catering' => $merchant, 'menu' => $menu->id]))
+            ->assertOk()
+            ->assertSee('value="1"', false);
+
+        // Menu milik katering lain tidak boleh ikut terpilih.
+        [, , $menuLain] = $this->createMerchant('Katering Lain');
+
+        $this->actingAs($customerUser)
+            ->get(route('customer.orders.create', ['catering' => $merchant, 'menu' => $menuLain->id]))
+            ->assertOk()
+            ->assertDontSee('value="1"', false);
+    }
+
+    public function test_login_page_lists_seeded_demo_accounts(): void
+    {
+        User::factory()->create(['role' => 'merchant', 'email' => 'sedap@katering.test']);
+        User::factory()->create(['role' => 'customer', 'email' => 'kantor@majujaya.test']);
+        User::factory()->create(['role' => 'admin', 'email' => 'admin@katering.test']);
+
+        $this->get(route('login'))
+            ->assertOk()
+            ->assertSee('Akun demo')
+            ->assertSee('sedap@katering.test')
+            ->assertSee('kantor@majujaya.test')
+            ->assertSee('admin@katering.test');
+    }
+
+    public function test_merchant_order_detail_shows_mark_paid_only_when_unpaid(): void
+    {
+        [$merchantUser, $merchant] = $this->createMerchant();
+        [$customerUser, $customer] = $this->createCustomer();
+
+        $order = Order::create([
+            'order_number' => 'ORD-UJI-0001',
+            'merchant_profile_id' => $merchant->id,
+            'customer_profile_id' => $customer->id,
+            'delivery_date' => now()->addDays(2),
+            'subtotal' => 25000,
+            'status' => 'pending',
+        ]);
+        $invoice = $order->invoice()->create([
+            'invoice_number' => 'INV-UJI-0001',
+            'issued_at' => now()->toDateString(),
+            'total' => 25000,
+            'payment_status' => 'belum_lunas',
+        ]);
+
+        // Invoice belum lunas: aksi Tandai Lunas tampil langsung di detail order.
+        $this->actingAs($merchantUser)
+            ->get(route('merchant.orders.show', $order))
+            ->assertOk()
+            ->assertSee('Tandai Lunas');
+
+        // Setelah lunas: aksi hilang (tidak ada tombol mati).
+        $invoice->update(['payment_status' => 'lunas', 'paid_at' => now()]);
+
+        $this->actingAs($merchantUser)
+            ->get(route('merchant.orders.show', $order))
+            ->assertOk()
+            ->assertDontSee('Tandai Lunas');
+    }
+
     public function test_admin_login_redirects_to_admin_dashboard(): void
     {
         User::factory()->create(['role' => 'admin', 'email' => 'admin@uji.test']);
