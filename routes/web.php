@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CuisineController as AdminCuisineController;
+use App\Http\Controllers\Admin\CustomerController as AdminCustomerController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\MerchantController as AdminMerchantController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Customer\CateringController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
@@ -57,6 +62,30 @@ Route::middleware(['auth', 'role:merchant'])
 
         Route::get('/invoices/{invoice}', [MerchantInvoiceController::class, 'show'])->name('invoices.show');
         Route::patch('/invoices/{invoice}/paid', [MerchantInvoiceController::class, 'markPaid'])->name('invoices.markPaid');
+    });
+
+// ── Portal Admin (akun dibuat via seeder, tidak bisa self-register) ──────
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/merchants', [AdminMerchantController::class, 'index'])->name('merchants.index');
+        Route::get('/merchants/{merchant}', [AdminMerchantController::class, 'show'])->name('merchants.show');
+        Route::patch('/merchants/{merchant}/toggle', [AdminMerchantController::class, 'toggleActive'])->name('merchants.toggle');
+
+        Route::get('/customers', [AdminCustomerController::class, 'index'])->name('customers.index');
+        Route::get('/customers/{customer}', [AdminCustomerController::class, 'show'])->name('customers.show');
+
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+
+        Route::get('/cuisines', [AdminCuisineController::class, 'index'])->name('cuisines.index');
+        Route::post('/cuisines', [AdminCuisineController::class, 'store'])->name('cuisines.store');
+        Route::put('/cuisines/{cuisine}', [AdminCuisineController::class, 'update'])->name('cuisines.update');
+        Route::patch('/cuisines/{cuisine}/toggle', [AdminCuisineController::class, 'toggle'])->name('cuisines.toggle');
+        Route::delete('/cuisines/{cuisine}', [AdminCuisineController::class, 'destroy'])->name('cuisines.destroy');
     });
 
 // ── Portal Customer (Kantor) ──────────────────────────────────────────────

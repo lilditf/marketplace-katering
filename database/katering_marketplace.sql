@@ -74,6 +74,35 @@ LOCK TABLES `cache_locks` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cuisine_types`
+--
+
+DROP TABLE IF EXISTS `cuisine_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cuisine_types` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cuisine_types_name_unique` (`name`),
+  KEY `cuisine_types_is_active_index` (`is_active`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cuisine_types`
+--
+
+LOCK TABLES `cuisine_types` WRITE;
+/*!40000 ALTER TABLE `cuisine_types` DISABLE KEYS */;
+INSERT INTO `cuisine_types` VALUES (1,'Indonesia',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(2,'Padang',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,'Chinese',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(4,'Jepang',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(5,'Barat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(6,'Sehat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(7,'Tradisional',1,'2026-10-15 05:50:19','2026-10-15 05:50:19');
+/*!40000 ALTER TABLE `cuisine_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customer_profiles`
 --
 
@@ -101,7 +130,7 @@ CREATE TABLE `customer_profiles` (
 
 LOCK TABLES `customer_profiles` WRITE;
 /*!40000 ALTER TABLE `customer_profiles` DISABLE KEYS */;
-INSERT INTO `customer_profiles` VALUES (1,5,'PT Maju Jaya Sentosa','Kota Jambi','Jl. Sultan Agung No. 45, Kota Jambi','Andi Rahman','2026-10-15 04:56:40','2026-10-15 04:56:40'),(2,6,'CV Batam Trade Office','Kota Batam','Komplek Batam Business Park Blok B2, Batam','Siska Melati','2026-10-15 04:56:40','2026-10-15 04:56:40');
+INSERT INTO `customer_profiles` VALUES (1,6,'PT Maju Jaya Sentosa','Kota Jambi','Jl. Sultan Agung No. 45, Kota Jambi','Andi Rahman','2026-10-15 05:50:19','2026-10-15 05:50:19'),(2,7,'CV Batam Trade Office','Kota Batam','Komplek Batam Business Park Blok B2, Batam','Siska Melati','2026-10-15 05:50:19','2026-10-15 05:50:19');
 /*!40000 ALTER TABLE `customer_profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +193,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (1,1,'INV-20261012-0001','2026-10-12',900000.00,'lunas','2026-10-13 04:56:40','2026-10-12 04:56:40','2026-10-12 04:56:40'),(2,2,'INV-20261015-0002','2026-10-15',750000.00,'belum_lunas',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(3,3,'INV-20261015-0003','2026-10-15',600000.00,'belum_lunas',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(4,4,'INV-20261014-0004','2026-10-14',450000.00,'belum_lunas',NULL,'2026-10-14 04:56:40','2026-10-14 04:56:40');
+INSERT INTO `invoices` VALUES (1,1,'INV-20261012-0001','2026-10-12',900000.00,'lunas','2026-10-13 05:50:19','2026-10-12 05:50:19','2026-10-12 05:50:19'),(2,2,'INV-20261015-0002','2026-10-15',750000.00,'belum_lunas',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,3,'INV-20261015-0003','2026-10-15',600000.00,'belum_lunas',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(4,4,'INV-20261014-0004','2026-10-14',450000.00,'belum_lunas',NULL,'2026-10-14 05:50:20','2026-10-14 05:50:20');
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,7 +287,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,1,'Nasi Kotak Ayam Bakar','Nasi putih, ayam bakar madu, tempe orek, tumis buncis, sambal, kerupuk.',25000.00,'menus/nasi-kotak-ayam-bakar.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(2,1,'Nasi Kotak Ikan Goreng','Nasi putih, ikan nila goreng, tahu, tumis kangkung, sambal terasi.',23000.00,'menus/nasi-kotak-ikan-goreng.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(3,1,'Soto Ayam Spesial','Soto ayam kuah kuning dengan nasi terpisah, telur, perkedel, dan emping.',18000.00,'menus/soto-ayam-spesial.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(4,1,'Ayam Geprek Sambal Bawang','Ayam krispi digeprek sambal bawang (level 0-5), nasi putih, lalapan segar.',20000.00,'menus/ayam-geprek-sambal-bawang.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(5,1,'Es Teh Manis','Teh manis dingin kemasan cup 400 ml, diseduh segar setiap pagi.',5000.00,'menus/es-teh-manis.jpg','Minuman',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(6,1,'Snack Box 3 Item','Tiga kue pilihan: risoles, lemper, dan pastel. Cocok untuk rapat pagi.',12000.00,'menus/snack-box-3-item.jpg','Makanan Ringan',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(7,2,'Nasi Padang Rendang','Rendang daging sapi empuk, sayur nangka, gulai rebung, sambal lado merah.',30000.00,'menus/nasi-padang-rendang.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(8,2,'Nasi Padang Ayam Pop','Ayam pop gurih lembut, sambal tomat segar, daun singkong rebus.',27000.00,'menus/nasi-padang-ayam-pop.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(9,2,'Gulai Tunjang','Gulai tunjang sapi kuah kental berbumbu rempah, disajikan dengan nasi putih.',32000.00,'menus/gulai-tunjang.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(10,2,'Paket Hemat Anak Kantor','Nasi, ayam gulai, sayur nangka, sambal. Khusus pemesanan minimal 10 porsi.',22000.00,'menus/paket-hemat-anak-kantor.jpg','Paket',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(11,2,'Teh Talua','Teh talua khas Minang: teh, telur, dan gula aren dikocok berbusa.',8000.00,'menus/teh-talua.jpg','Minuman',0,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(12,3,'Chicken Salad Bowl','Dada ayam panggang, mixed lettuce, tomat ceri, alpukat, dressing lemon madu.',35000.00,'menus/chicken-salad-bowl.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(13,3,'Berry Smoothie Bowl','Smoothie stroberi dan blueberry, topping granola, chia seed, dan pisang.',30000.00,'menus/berry-smoothie-bowl.jpg','Makanan Ringan',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(14,3,'Set Nasi Merah Ayam Panggang','Nasi merah, ayam panggang herb, brokoli kukus, telur rebus. Sekitar 520 kkal.',38000.00,'menus/set-nasi-merah-ayam-panggang.jpg','Paket',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(15,3,'Green Juice 500ml','Campuran bayam, apel hijau, timun, dan jeruk nipis tanpa gula tambahan.',15000.00,'menus/green-juice-500ml.jpg','Minuman',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(16,3,'Overnight Oats Cokelat','Oat direndam susu almond, kakao, madu, dan potongan pisang.',20000.00,'menus/overnight-oats-cokelat.jpg','Makanan Ringan',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(17,4,'Chicken Teriyaki Bento','Ayam teriyaki, nasi tabur wijen, salad kol, dan tamagoyaki.',40000.00,'menus/chicken-teriyaki-bento.jpg','Paket',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(18,4,'Beef Gyudon','Irisan daging sapi manis-gurih di atas nasi hangat, taburan nori.',45000.00,'menus/beef-gyudon.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(19,4,'Sushi Roll Set 8 pcs','Delapan roll sushi isi crab stick dan timun, lengkap saus shoyu dan wasabi.',42000.00,'menus/sushi-roll-set-8-pcs.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(20,4,'Ramen Tori Paitan','Ramen kuah kaldu ayam kental, chashu ayam, telur ramen, dan menma.',38000.00,'menus/ramen-tori-paitan.jpg','Makanan Berat',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(21,4,'Ocha Dingin','Teh hijau Jepang tanpa gula, botol 350 ml.',7000.00,'menus/ocha-dingin.jpg','Minuman',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(22,4,'Takoyaki 6 pcs','Takoyaki isi gurita dengan saus takoyaki, mayones, dan katsuobushi.',18000.00,'menus/takoyaki-6-pcs.jpg','Makanan Ringan',0,'2026-10-15 04:56:40','2026-10-15 04:56:40');
+INSERT INTO `menus` VALUES (1,1,'Nasi Kotak Ayam Bakar','Nasi putih, ayam bakar madu, tempe orek, tumis buncis, sambal, kerupuk.',25000.00,'menus/nasi-kotak-ayam-bakar.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(2,1,'Nasi Kotak Ikan Goreng','Nasi putih, ikan nila goreng, tahu, tumis kangkung, sambal terasi.',23000.00,'menus/nasi-kotak-ikan-goreng.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,1,'Soto Ayam Spesial','Soto ayam kuah kuning dengan nasi terpisah, telur, perkedel, dan emping.',18000.00,'menus/soto-ayam-spesial.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(4,1,'Ayam Geprek Sambal Bawang','Ayam krispi digeprek sambal bawang (level 0-5), nasi putih, lalapan segar.',20000.00,'menus/ayam-geprek-sambal-bawang.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(5,1,'Es Teh Manis','Teh manis dingin kemasan cup 400 ml, diseduh segar setiap pagi.',5000.00,'menus/es-teh-manis.jpg','Minuman',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(6,1,'Snack Box 3 Item','Tiga kue pilihan: risoles, lemper, dan pastel. Cocok untuk rapat pagi.',12000.00,'menus/snack-box-3-item.jpg','Makanan Ringan',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(7,2,'Nasi Padang Rendang','Rendang daging sapi empuk, sayur nangka, gulai rebung, sambal lado merah.',30000.00,'menus/nasi-padang-rendang.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(8,2,'Nasi Padang Ayam Pop','Ayam pop gurih lembut, sambal tomat segar, daun singkong rebus.',27000.00,'menus/nasi-padang-ayam-pop.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(9,2,'Gulai Tunjang','Gulai tunjang sapi kuah kental berbumbu rempah, disajikan dengan nasi putih.',32000.00,'menus/gulai-tunjang.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(10,2,'Paket Hemat Anak Kantor','Nasi, ayam gulai, sayur nangka, sambal. Khusus pemesanan minimal 10 porsi.',22000.00,'menus/paket-hemat-anak-kantor.jpg','Paket',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(11,2,'Teh Talua','Teh talua khas Minang: teh, telur, dan gula aren dikocok berbusa.',8000.00,'menus/teh-talua.jpg','Minuman',0,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(12,3,'Chicken Salad Bowl','Dada ayam panggang, mixed lettuce, tomat ceri, alpukat, dressing lemon madu.',35000.00,'menus/chicken-salad-bowl.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(13,3,'Berry Smoothie Bowl','Smoothie stroberi dan blueberry, topping granola, chia seed, dan pisang.',30000.00,'menus/berry-smoothie-bowl.jpg','Makanan Ringan',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(14,3,'Set Nasi Merah Ayam Panggang','Nasi merah, ayam panggang herb, brokoli kukus, telur rebus. Sekitar 520 kkal.',38000.00,'menus/set-nasi-merah-ayam-panggang.jpg','Paket',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(15,3,'Green Juice 500ml','Campuran bayam, apel hijau, timun, dan jeruk nipis tanpa gula tambahan.',15000.00,'menus/green-juice-500ml.jpg','Minuman',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(16,3,'Overnight Oats Cokelat','Oat direndam susu almond, kakao, madu, dan potongan pisang.',20000.00,'menus/overnight-oats-cokelat.jpg','Makanan Ringan',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(17,4,'Chicken Teriyaki Bento','Ayam teriyaki, nasi tabur wijen, salad kol, dan tamagoyaki.',40000.00,'menus/chicken-teriyaki-bento.jpg','Paket',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(18,4,'Beef Gyudon','Irisan daging sapi manis-gurih di atas nasi hangat, taburan nori.',45000.00,'menus/beef-gyudon.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(19,4,'Sushi Roll Set 8 pcs','Delapan roll sushi isi crab stick dan timun, lengkap saus shoyu dan wasabi.',42000.00,'menus/sushi-roll-set-8-pcs.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(20,4,'Ramen Tori Paitan','Ramen kuah kaldu ayam kental, chashu ayam, telur ramen, dan menma.',38000.00,'menus/ramen-tori-paitan.jpg','Makanan Berat',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(21,4,'Ocha Dingin','Teh hijau Jepang tanpa gula, botol 350 ml.',7000.00,'menus/ocha-dingin.jpg','Minuman',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(22,4,'Takoyaki 6 pcs','Takoyaki isi gurita dengan saus takoyaki, mayones, dan katsuobushi.',18000.00,'menus/takoyaki-6-pcs.jpg','Makanan Ringan',0,'2026-10-15 05:50:19','2026-10-15 05:50:19');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,7 +323,7 @@ CREATE TABLE `merchant_profiles` (
 
 LOCK TABLES `merchant_profiles` WRITE;
 /*!40000 ALTER TABLE `merchant_profiles` DISABLE KEYS */;
-INSERT INTO `merchant_profiles` VALUES (1,1,'Katering Sedap Nusantara','Kota Jambi','Jl. Hayam Wuruk No. 12, Jelutung, Kota Jambi','Indonesia','Katering rumahan sejak 2015, spesialis nasi kotak dan prasmanan untuk kantor serta acara keluarga. Bahan segar setiap hari, halal, dan tanpa MSG berlebihan.',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(2,2,'Dapur Umi Masakan Padang','Kota Jambi','Jl. Gatot Subroto No. 88, Pasar Jambi, Kota Jambi','Padang','Masakan Padang otentik dengan bumbu warisan keluarga. Melayani porsi perorangan sampai ratusan porsi untuk instansi, diantar tepat waktu.',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(3,3,'Green Bowl Healthy Catering','Kota Batam','Komplek Nagoya Business Centre Blok C3, Batam','Sehat','Katering sehat untuk gaya hidup aktif: rendah minyak, tanpa pengawet, dan informasi kalori tercantum per porsi. Cocok untuk program makan siang kantor.',1,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(4,4,'Sakura Bento Batam','Kota Batam','Jl. Raja Ali Haji No. 21, Batam Centre, Batam','Jepang','Bento dan masakan Jepang halal-friendly untuk makan siang kantor. Dikemas rapi, porsi mengenyangkan, dan selalu tepat waktu.',1,'2026-10-15 04:56:40','2026-10-15 04:56:40');
+INSERT INTO `merchant_profiles` VALUES (1,2,'Katering Sedap Nusantara','Kota Jambi','Jl. Hayam Wuruk No. 12, Jelutung, Kota Jambi','Indonesia','Katering rumahan sejak 2015, spesialis nasi kotak dan prasmanan untuk kantor serta acara keluarga. Bahan segar setiap hari, halal, dan tanpa MSG berlebihan.',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(2,3,'Dapur Umi Masakan Padang','Kota Jambi','Jl. Gatot Subroto No. 88, Pasar Jambi, Kota Jambi','Padang','Masakan Padang otentik dengan bumbu warisan keluarga. Melayani porsi perorangan sampai ratusan porsi untuk instansi, diantar tepat waktu.',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,4,'Green Bowl Healthy Catering','Kota Batam','Komplek Nagoya Business Centre Blok C3, Batam','Sehat','Katering sehat untuk gaya hidup aktif: rendah minyak, tanpa pengawet, dan informasi kalori tercantum per porsi. Cocok untuk program makan siang kantor.',1,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(4,5,'Sakura Bento Batam','Kota Batam','Jl. Raja Ali Haji No. 21, Batam Centre, Batam','Jepang','Bento dan masakan Jepang halal-friendly untuk makan siang kantor. Dikemas rapi, porsi mengenyangkan, dan selalu tepat waktu.',1,'2026-10-15 05:50:19','2026-10-15 05:50:19');
 /*!40000 ALTER TABLE `merchant_profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,7 +339,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +348,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_10_15_000001_add_role_and_phone_to_users_table',1),(5,'2026_10_15_000002_create_merchant_profiles_table',1),(6,'2026_10_15_000003_create_customer_profiles_table',1),(7,'2026_10_15_000004_create_menus_table',1),(8,'2026_10_15_000005_create_orders_table',1),(9,'2026_10_15_000006_create_order_items_table',1),(10,'2026_10_15_000007_create_invoices_table',1);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_10_15_000001_add_role_and_phone_to_users_table',1),(5,'2026_10_15_000002_create_merchant_profiles_table',1),(6,'2026_10_15_000003_create_customer_profiles_table',1),(7,'2026_10_15_000004_create_menus_table',1),(8,'2026_10_15_000005_create_orders_table',1),(9,'2026_10_15_000006_create_order_items_table',1),(10,'2026_10_15_000007_create_invoices_table',1),(11,'2026_10_15_000008_create_cuisine_types_table_and_admin_role',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,7 +382,7 @@ CREATE TABLE `order_items` (
 
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
-INSERT INTO `order_items` VALUES (1,1,1,30,25000.00,750000.00,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(2,1,5,30,5000.00,150000.00,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(3,2,12,15,35000.00,525000.00,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(4,2,15,15,15000.00,225000.00,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(5,3,7,20,30000.00,600000.00,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(6,4,18,10,45000.00,450000.00,'2026-10-15 04:56:40','2026-10-15 04:56:40');
+INSERT INTO `order_items` VALUES (1,1,1,30,25000.00,750000.00,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(2,1,5,30,5000.00,150000.00,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,2,12,15,35000.00,525000.00,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(4,2,15,15,15000.00,225000.00,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(5,3,7,20,30000.00,600000.00,'2026-10-15 05:50:20','2026-10-15 05:50:20'),(6,4,18,10,45000.00,450000.00,'2026-10-15 05:50:20','2026-10-15 05:50:20');
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +420,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'ORD-20261012-0001',1,1,'2026-10-14','Diantar ke resepsionis lantai 1.',900000.00,'selesai','2026-10-12 04:56:40','2026-10-15 04:56:40'),(2,'ORD-20261015-0002',3,2,'2026-10-17',NULL,750000.00,'dikonfirmasi','2026-10-15 04:56:40','2026-10-15 04:56:40'),(3,'ORD-20261015-0003',2,1,'2026-10-16','Mohon sambal dipisah.',600000.00,'pending','2026-10-15 04:56:40','2026-10-15 04:56:40'),(4,'ORD-20261014-0004',4,2,'2026-10-15',NULL,450000.00,'dibatalkan','2026-10-14 04:56:40','2026-10-15 04:56:40');
+INSERT INTO `orders` VALUES (1,'ORD-20261012-0001',1,1,'2026-10-14','Diantar ke resepsionis lantai 1.',900000.00,'selesai','2026-10-12 05:50:19','2026-10-15 05:50:19'),(2,'ORD-20261015-0002',3,2,'2026-10-17',NULL,750000.00,'dikonfirmasi','2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,'ORD-20261015-0003',2,1,'2026-10-16','Mohon sambal dipisah.',600000.00,'pending','2026-10-15 05:50:19','2026-10-15 05:50:20'),(4,'ORD-20261014-0004',4,2,'2026-10-15',NULL,450000.00,'dibatalkan','2026-10-14 05:50:20','2026-10-15 05:50:20');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,14 +490,14 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('merchant','customer') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('merchant','customer','admin') COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -477,7 +506,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Sri Wahyuni','sedap@katering.test',NULL,'$2y$12$..jrHRC/rFYy8tdX49JPi.4ugHe9Jc45Ws6ZxhTrux5EZzOXt7oOG','merchant','081234567001',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(2,'Yeti Wulandari','dapurumi@katering.test',NULL,'$2y$12$..jrHRC/rFYy8tdX49JPi.4ugHe9Jc45Ws6ZxhTrux5EZzOXt7oOG','merchant','081234567002',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(3,'Maya Kusuma','greenbowl@katering.test',NULL,'$2y$12$..jrHRC/rFYy8tdX49JPi.4ugHe9Jc45Ws6ZxhTrux5EZzOXt7oOG','merchant','081234567003',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(4,'Rina Tanaka','sakura@katering.test',NULL,'$2y$12$..jrHRC/rFYy8tdX49JPi.4ugHe9Jc45Ws6ZxhTrux5EZzOXt7oOG','merchant','081234567004',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(5,'Andi Rahman','kantor@majujaya.test',NULL,'$2y$12$..jrHRC/rFYy8tdX49JPi.4ugHe9Jc45Ws6ZxhTrux5EZzOXt7oOG','customer','081345678001',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40'),(6,'Siska Melati','kantor@batamtrade.test',NULL,'$2y$12$..jrHRC/rFYy8tdX49JPi.4ugHe9Jc45Ws6ZxhTrux5EZzOXt7oOG','customer','081345678002',NULL,'2026-10-15 04:56:40','2026-10-15 04:56:40');
+INSERT INTO `users` VALUES (1,'Admin Marketplace','admin@katering.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','admin','081100000001',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(2,'Sri Wahyuni','sedap@katering.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','merchant','081234567001',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(3,'Yeti Wulandari','dapurumi@katering.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','merchant','081234567002',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(4,'Maya Kusuma','greenbowl@katering.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','merchant','081234567003',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(5,'Rina Tanaka','sakura@katering.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','merchant','081234567004',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(6,'Andi Rahman','kantor@majujaya.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','customer','081345678001',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19'),(7,'Siska Melati','kantor@batamtrade.test',NULL,'$2y$12$4Om3JOv7AYTYolVsuuQzf.Cpa3Ah2SDrp.99WxiR1kC3DJH4cvnOG','customer','081345678002',NULL,'2026-10-15 05:50:19','2026-10-15 05:50:19');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -490,4 +519,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-15 11:56:46
+-- Dump completed on 2026-10-15 12:50:20

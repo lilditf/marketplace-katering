@@ -11,7 +11,28 @@
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto">
                 @auth
-                    @if (auth()->user()->isMerchant())
+                    @if (auth()->user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active fw-semibold' : '' }}"
+                               href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.merchants.*') ? 'active fw-semibold' : '' }}"
+                               href="{{ route('admin.merchants.index') }}">Katering</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active fw-semibold' : '' }}"
+                               href="{{ route('admin.customers.index') }}">Kantor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active fw-semibold' : '' }}"
+                               href="{{ route('admin.orders.index') }}">Order</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.cuisines.*') ? 'active fw-semibold' : '' }}"
+                               href="{{ route('admin.cuisines.index') }}">Jenis Makanan</a>
+                        </li>
+                    @elseif (auth()->user()->isMerchant())
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('merchant.dashboard') ? 'active fw-semibold' : '' }}"
                                href="{{ route('merchant.dashboard') }}">Dashboard</a>
@@ -67,7 +88,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <span class="dropdown-item-text small text-muted">
-                                    {{ auth()->user()->isMerchant() ? 'Portal Katering' : 'Portal Kantor' }}
+                                    {{ auth()->user()->isMerchant() ? 'Portal Katering' : (auth()->user()->isAdmin() ? 'Portal Admin' : 'Portal Kantor') }}
                                 </span>
                             </li>
                             <li><hr class="dropdown-divider"></li>

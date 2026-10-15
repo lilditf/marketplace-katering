@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\CuisineType;
 use App\Models\CustomerProfile;
 use App\Models\Invoice;
 use App\Models\Menu;
@@ -16,6 +17,110 @@ use Tests\TestCase;
 class MarketplaceFlowTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Daftar jenis makanan kini dikelola admin via tabel cuisine_types;
+        // test butuh daftar ini ada (mis. validasi registrasi merchant).
+        foreach (['Indonesia', 'Padang', 'Jepang'] as $cuisine) {
+            CuisineType::create(['name' => $cuisine, 'is_active' => true]);
+        }
+    }
+
+    public function test_admin_can_open_admin_dashboard_and_other_roles_cannot(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        [$merchantUser] = $this->createMerchant();
+        [$customerUser] = $this->createCustomer();
+
+        $this->actingAs($admin)->get(route('admin.dashboard'))->assertOk();
+        $this->actingAs($merchantUser)->get(route('admin.dashboard'))->assertForbidden();
+        $this->actingAs($customerUser)->get(route('admin.dashboard'))->assertForbidden();
+    }
+
+    public function test_registration_cannot_create_admin_account(): void
+    {
+        $response = $this->post(route('register.store'), [
+            'role' => 'admin',
+            'name' => 'Admin Palsu',
+            'email' => 'palsu@example.test',
+            'phone' => '081234567890',
+            'password' => 'rahasia123',
+            'password_confirmation' => 'rahasia123',
+            'city' => 'Jambi',
+        ]);
+
+        $response->assertSessionHasErrors('role');
+        $this->assertDatabaseMissing('users', ['email' => 'palsu@example.test']);
+    }
+
+    public function test_admin_can_add_cuisine_type_and_it_appears_in_register_form(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $this->actingAs($admin)
+            ->post(route('admin.cuisines.store'), ['name' => 'Korea'])
+            ->assertSessionHas('success');
+
+        $this->assertDatabaseHas('cuisine_types', ['name' => 'Korea', 'is_active' => true]);
+
+        // Cache daftar jenis harus sudah bersih sehingga pilihan baru tampil.
+        // (logout dulu: form register hanya untuk guest)
+        $this->post(route('logout'));
+
+        $this->get(route('register', ['role' => 'merchant']))
+            ->assertSee('Korea');
+    }
+
+    public function test_admin_cannot_delete_cuisine_type_that_is_in_use(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        [, $merchant] = $this->createMerchant(); // cuisine_type: Indonesia
+
+        $cuisine = CuisineType::where('name', 'Indonesia')->firstOrFail();
+
+        $this->actingAs($admin)
+            ->delete(route('admin.cuisines.destroy', $cuisine))
+            ->assertSessionHas('error');
+
+        $this->assertDatabaseHas('cuisine_types', ['name' => 'Indonesia']);
+    }
+
+    public function test_admin_can_deactivate_merchant_and_it_disappears_from_search(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        [, $merchant] = $this->createMerchant('Katering Pertama');
+        [$customerUser] = $this->createCustomer();
+
+        $this->actingAs($admin)
+            ->patch(route('admin.merchants.toggle', $merchant))
+            ->assertSessionHas('success');
+
+        $this->assertDatabaseHas('merchant_profiles', [
+            'id' => $merchant->id,
+            'is_active' => false,
+        ]);
+
+        // Bersihkan flash session admin (pesan sukses toggle menyebut nama
+        // katering) agar tidak ikut terbaca di request berikutnya.
+        $this->flushSession();
+
+        // Katering nonaktif tidak muncul di pencarian customer.
+        $response = $this->actingAs($customerUser)->get(route('customer.caterings.index'));
+        $response->assertDontSee('Katering Pertama');
+    }
+
+    public function test_admin_login_redirects_to_admin_dashboard(): void
+    {
+        User::factory()->create(['role' => 'admin', 'email' => 'admin@uji.test']);
+
+        $this->post(route('login.store'), [
+            'email' => 'admin@uji.test',
+            'password' => 'password',
+        ])->assertRedirect(route('admin.dashboard'));
+    }
 
     public function test_merchant_can_register_and_password_is_hashed(): void
     {

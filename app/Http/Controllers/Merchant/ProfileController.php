@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Merchant;
 
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Controller;
+use App\Models\CuisineType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,7 @@ class ProfileController extends Controller
     {
         return view('merchant.profile', [
             'merchant' => $request->user()->merchantProfile,
-            'cuisineTypes' => AuthController::CUISINE_TYPES,
+            'cuisineTypes' => CuisineType::activeNames(),
         ]);
     }
 
@@ -33,7 +33,7 @@ class ProfileController extends Controller
             'company_name' => ['required', 'string', 'max:150'],
             'city' => ['required', 'string', 'max:100'],
             'address' => ['nullable', 'string', 'max:255'],
-            'cuisine_type' => ['required', Rule::in(AuthController::CUISINE_TYPES)],
+            'cuisine_type' => ['required', Rule::in(CuisineType::activeNames())],
             'description' => ['nullable', 'string', 'max:2000'],
             'name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'min:8', 'max:20'],

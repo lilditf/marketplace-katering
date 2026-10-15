@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\CuisineType;
 use App\Models\CustomerProfile;
 use App\Models\MerchantProfile;
 use App\Models\User;
@@ -24,18 +25,14 @@ use Illuminate\View\View;
  */
 class AuthController extends Controller
 {
-    /**
-     * Jenis makanan yang tersedia sebagai filter pencarian & profil merchant.
-     */
-    public const CUISINE_TYPES = ['Indonesia', 'Padang', 'Chinese', 'Jepang', 'Barat', 'Sehat', 'Tradisional'];
-
     public function showRegister(Request $request): View
     {
         $role = $request->query('role') === 'merchant' ? 'merchant' : 'customer';
 
         return view('auth.register', [
             'role' => $role,
-            'cuisineTypes' => self::CUISINE_TYPES,
+            // Daftar jenis makanan dikelola admin (tabel cuisine_types).
+            'cuisineTypes' => CuisineType::activeNames(),
         ]);
     }
 
@@ -49,7 +46,7 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'city' => ['required', 'string', 'max:100'],
             'company_name' => ['required_if:role,merchant', 'nullable', 'string', 'max:150'],
-            'cuisine_type' => ['required_if:role,merchant', 'nullable', Rule::in(self::CUISINE_TYPES)],
+            'cuisine_type' => ['required_if:role,merchant', 'nullable', Rule::in(CuisineType::activeNames())],
             'office_name' => ['required_if:role,customer', 'nullable', 'string', 'max:150'],
         ], [
             'role.required' => 'Jenis pendaftaran wajib dipilih.',
@@ -148,8 +145,15 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
+        // Redirect per role; admin dibuat via seeder (tidak bisa self-register).
+        $home = match (true) {
+            $user->isMerchant() => 'merchant.dashboard',
+            $user->isAdmin() => 'admin.dashboard',
+            default => 'customer.dashboard',
+        };
+
         return redirect()
-            ->intended(route($user->isMerchant() ? 'merchant.dashboard' : 'customer.dashboard'))
+            ->intended(route($home))
             ->with('success', 'Login berhasil. Selamat bekerja!');
     }
 

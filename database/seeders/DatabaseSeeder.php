@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CuisineType;
 use App\Models\CustomerProfile;
 use App\Models\Invoice;
 use App\Models\Menu;
@@ -28,6 +29,21 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $password = Hash::make('password');
+
+        // ── Jenis makanan resmi (dikelola admin lewat dashboard) ────────
+        foreach (['Indonesia', 'Padang', 'Chinese', 'Jepang', 'Barat', 'Sehat', 'Tradisional'] as $cuisine) {
+            CuisineType::create(['name' => $cuisine, 'is_active' => true]);
+        }
+
+        // ── Akun admin (tidak bisa didaftarkan lewat form registrasi) ────
+        User::create([
+            'name' => 'Admin Marketplace',
+            'email' => 'admin@katering.test',
+            'phone' => '081100000001',
+            'password' => $password,
+            'role' => 'admin',
+        ]);
+
         $menusDir = Storage::disk('public')->path('menus');
 
         if (! is_dir($menusDir)) {

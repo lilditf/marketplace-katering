@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Controller;
+use App\Models\CuisineType;
 use App\Models\MerchantProfile;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -27,7 +27,7 @@ class CateringController extends Controller
         $cuisine = (string) $request->query('cuisine', '');
 
         // Filter jenis makanan hanya diterima bila ada di whitelist.
-        if (! in_array($cuisine, AuthController::CUISINE_TYPES, true)) {
+        if (! in_array($cuisine, CuisineType::activeNames(), true)) {
             $cuisine = '';
         }
 
@@ -49,7 +49,7 @@ class CateringController extends Controller
         return view('customer.caterings.index', [
             'merchants' => $merchants,
             'cities' => $cities,
-            'cuisineTypes' => AuthController::CUISINE_TYPES,
+            'cuisineTypes' => CuisineType::activeNames(),
             'keyword' => $keyword,
             'city' => $city,
             'cuisine' => $cuisine,

@@ -27,6 +27,18 @@ Portal Customer (Kantor)
 - Riwayat order + akses invoice (print-friendly)
 - Dashboard: order aktif & total transaksi
 
+Portal Admin
+
+- Akun dibuat via seeder (tidak bisa self-register), login di halaman yang sama
+- Dashboard global: katering aktif, kantor terdaftar, total order, omzet marketplace
+- Kelola katering: aktif/nonaktifkan (nonaktif = disembunyikan dari pencarian,
+  data & riwayat tetap utuh)
+- Pantau kantor customer + riwayat ordernya
+- Pantau semua order lintas merchant (read-only; status tetap wewenang merchant)
+- Kelola daftar resmi jenis makanan (tambah/ubah/nonaktifkan/hapus dengan guard:
+  jenis yang dipakai katering tidak bisa dihapus). Daftar ini otomatis dipakai
+  form registrasi, edit profil merchant, dan filter pencarian customer.
+
 Non-fungsional
 
 - Autentikasi manual (tanpa package scaffolding): hash bcrypt, throttle login
@@ -92,6 +104,7 @@ Semua akun memakai password: `password`
 | Merchant | sakura@katering.test   | Sakura Bento Batam (Batam, Jepang)          |
 | Customer | kantor@majujaya.test   | PT Maju Jaya Sentosa (Jambi)|
 | Customer | kantor@batamtrade.test | CV Batam Trade Office (Batam)|
+| Admin    | admin@katering.test    | Admin Marketplace            |
 
 ## Menjalankan Test
 
@@ -99,10 +112,12 @@ Semua akun memakai password: `password`
 php artisan test
 ```
 
-16 feature/unit test mencakup: registrasi + hashing password, batas akses antar
+22 feature/unit test mencakup: registrasi + hashing password, batas akses antar
 role & antar tenant, total order dari harga database, pembuatan invoice atomik,
 penolakan order lintas merchant, penolakan upload file non-gambar/oversize,
-escaping XSS, penolakan tanggal lampau, throttle login, dan batas porsi.
+escaping XSS, penolakan tanggal lampau, throttle login, batas porsi, plus alur
+admin (akses portal, larangan registrasi admin, kelola jenis makanan,
+nonaktifkan katering, redirect login per role).
 
 ## Struktur Singkat
 
@@ -110,6 +125,7 @@ escaping XSS, penolakan tanggal lampau, throttle login, dan batas porsi.
 app/Http/Controllers/Auth/       register/login/logout manual
 app/Http/Controllers/Merchant/   dashboard, profil, menu, order, invoice
 app/Http/Controllers/Customer/   dashboard, pencarian, order, invoice
+app/Http/Controllers/Admin/      dashboard global, kelola katering/kantor/order/jenis makanan
 app/Http/Middleware/             EnsureUserHasRole (alias middleware "role")
 app/Policies/                    otorisasi Menu/Order/Invoice
 database/migrations/             7 tabel inti + tabel bawaan Laravel
@@ -144,6 +160,9 @@ yang saya buat, beserta alasannya:
   saat komunikasi kedua pihak.
 - Throttle login 5x/menit per email+IP, sebagai bagian dari "keamanan login"
   yang diminta petunjuk pengerjaan.
+- Portal admin (role ketiga, akun via seeder): moderasi katering
+  (aktif/nonaktif), pantau semua order, dan kelola daftar jenis makanan yang
+  tadinya konstanta kode menjadi data yang bisa dikelola tanpa deploy.
 
 ## Catatan Keputusan Desain
 
