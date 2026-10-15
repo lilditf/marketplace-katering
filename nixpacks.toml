@@ -1,0 +1,18 @@
+# Konfigurasi build Railway (Nixpacks) untuk Laravel.
+# Hanya provider PHP: proyek tidak punya build step Node (Bootstrap via CDN).
+# Ekstensi gd & pdo_mysql diambil dari require composer.json.
+providers = ["php"]
+
+[phases.install]
+cmds = ["composer install --no-dev --optimize-autoloader --no-interaction --no-progress"]
+
+[phases.build]
+cmds = [
+    "php artisan package:discover --ansi",
+    "chmod -R 775 storage bootstrap/cache",
+]
+
+[start]
+# Migrate selalu idempotent; seed hanya jalan saat database kosong (app:seed-if-empty);
+# storage:link untuk foto menu di disk public; lalu jalankan server di port Railway.
+cmd = "php artisan migrate --force && php artisan storage:link && php artisan app:seed-if-empty && php artisan serve --host 0.0.0.0 --port ${PORT}"
