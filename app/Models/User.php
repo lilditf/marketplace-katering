@@ -21,7 +21,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Atribut yang boleh diisi massal lewat create()/fill().
      *
      * @var list<string>
      */
@@ -34,7 +34,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Atribut yang tidak pernah ikut terserialisasi ke array/JSON.
      *
      * @var list<string>
      */
@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Casting atribut ke tipe native (password otomatis di-hash bcrypt).
      *
      * @return array<string, string>
      */

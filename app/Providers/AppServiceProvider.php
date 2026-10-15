@@ -13,7 +13,7 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Registrasi service container (kosong, tidak ada binding custom).
      */
     public function register(): void
     {
@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Bootstrap any application services.
+     * Pengaturan yang berjalan setiap aplikasi boot.
      */
     public function boot(): void
     {
