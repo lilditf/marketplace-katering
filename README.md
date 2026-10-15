@@ -1,59 +1,131 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Marketplace Katering
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Web app Laravel yang menghubungkan perusahaan katering (merchant) dengan kantor
+(customer) untuk pemesanan makan siang karyawan. Setiap pembelian menerbitkan
+invoice otomatis yang bisa diakses kedua belah pihak.
 
-## About Laravel
+Dibuat sebagai hasil tes coding Web Developer — PT Transindo Data Perkasa.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Portal Merchant (Katering)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Registrasi & login khusus katering
+- Kelola profil perusahaan: nama, kota, alamat, jenis makanan, deskripsi
+- CRUD menu lengkap dengan foto, deskripsi, harga, kategori, dan toggle ketersediaan
+- Daftar order masuk dengan filter status + detail invoice
+- Alur status order: pending, dikonfirmasi, dikirim, selesai (atau dibatalkan)
+- Tandai invoice lunas
+- Dashboard: total order, omzet bulan ini, menu terlaris
 
-## Learning Laravel
+Portal Customer (Kantor)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- Registrasi & login khusus kantor
+- Pencarian katering: kata kunci, filter kota, filter jenis makanan, urutkan
+- Detail katering beserta daftar menu
+- Pemesanan: pilih menu, jumlah porsi per menu, tanggal pengiriman, catatan
+- Riwayat order + akses invoice (print-friendly)
+- Dashboard: order aktif & total transaksi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Non-fungsional
 
-## Laravel Sponsors
+- Autentikasi manual (tanpa package scaffolding): hash bcrypt, throttle login
+  5x/menit, regenerasi session, logout via POST
+- Otorisasi per role via middleware + policy (merchant A tidak bisa menyentuh
+  data merchant B)
+- Transaksi database untuk pembuatan order + item + invoice (atomik)
+- Harga dihitung ulang di server (anti price-tampering), price_snapshot menjaga
+  invoice lama tidak berubah saat harga menu berubah
+- Upload foto divalidasi (jpg/jpeg/png/webp, maks 2 MB)
+- Halaman error kustom 403/404/500, flash message konsisten, responsif 375px+
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Stack
 
-### Premium Partners
+- Laravel 12, PHP 8.2+
+- MySQL 8
+- Blade + Bootstrap 5.3 via CDN (tanpa build step), Bootstrap Icons
+- Layer CSS kustom: `public/css/app.css` (design tokens, satu warna aksen)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Cara Menjalankan
 
-## Contributing
+Prasyarat: PHP 8.2+, Composer, MySQL 8 berjalan.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+# 1. Install dependensi
+composer install
 
-## Code of Conduct
+# 2. Siapkan environment
+cp .env.example .env
+php artisan key:generate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 3. Buat database MySQL bernama katering_marketplace, lalu sesuaikan
+#    DB_USERNAME / DB_PASSWORD di .env bila perlu (default: root, tanpa password)
 
-## Security Vulnerabilities
+# 4. Migrasi + data contoh (4 katering, 22 menu berfoto, 2 kantor, 4 order)
+php artisan migrate:fresh --seed
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 5. Link storage untuk foto menu
+php artisan storage:link
 
-## License
+# 6. Jalankan
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Buka http://127.0.0.1:8000
+
+Alternatif: file SQL siap import tersedia di `database/katering_marketplace.sql`
+(sudah termasuk schema + data contoh; tetap jalankan langkah 5).
+
+## Akun Demo
+
+Semua akun memakai password: `password`
+
+| Role     | Email                  | Nama                        |
+|----------|------------------------|-----------------------------|
+| Merchant | sedap@katering.test    | Katering Sedap Nusantara (Jambi, Indonesia) |
+| Merchant | dapurumi@katering.test | Dapur Umi Masakan Padang (Jambi, Padang)    |
+| Merchant | greenbowl@katering.test| Green Bowl Healthy Catering (Batam, Sehat)  |
+| Merchant | sakura@katering.test   | Sakura Bento Batam (Batam, Jepang)          |
+| Customer | kantor@majujaya.test   | PT Maju Jaya Sentosa (Jambi)|
+| Customer | kantor@batamtrade.test | CV Batam Trade Office (Batam)|
+
+## Menjalankan Test
+
+```bash
+php artisan test
+```
+
+16 feature/unit test mencakup: registrasi + hashing password, batas akses antar
+role & antar tenant, total order dari harga database, pembuatan invoice atomik,
+penolakan order lintas merchant, penolakan upload file non-gambar/oversize,
+escaping XSS, penolakan tanggal lampau, throttle login, dan batas porsi.
+
+## Struktur Singkat
+
+```
+app/Http/Controllers/Auth/       register/login/logout manual
+app/Http/Controllers/Merchant/   dashboard, profil, menu, order, invoice
+app/Http/Controllers/Customer/   dashboard, pencarian, order, invoice
+app/Http/Middleware/             EnsureUserHasRole (alias middleware "role")
+app/Policies/                    otorisasi Menu/Order/Invoice
+database/migrations/             7 tabel inti + tabel bawaan Laravel
+database/seeders/                data demo + generator foto placeholder (GD)
+database/katering_marketplace.sql  dump SQL siap import
+resources/views/                 Blade (layouts, partials, kedua portal, errors)
+public/css/app.css               design tokens & komponen brand
+tests/Feature/MarketplaceFlowTest.php
+```
+
+## Catatan Keputusan Desain
+
+- Satu tabel `users` + kolom `role` (bukan multi-guard): cukup untuk dua portal,
+  lebih sedikit kompleksitas session/redirect.
+- `order_items.price_snapshot`: harga menu bisa berubah, invoice lama harus tetap
+  mencerminkan harga saat transaksi terjadi.
+- FK `order_items.menu_id` RESTRICT: menu yang sudah pernah dipesan tidak bisa
+  dihapus demi integritas riwayat; sebagai gantinya ada toggle "Tersedia".
+- Nomor order & invoice unik, dibuat dalam `DB::transaction` yang sama dengan
+  pembuatan order (anti duplikasi saat request beruntun).
+- Total order selalu dihitung dari harga di database, bukan dari input form.
+- Foto menu disimpan di disk `public` (`storage/app/public/menus`), hanya path
+  relatif yang dicatat di database.
