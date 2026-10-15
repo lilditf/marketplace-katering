@@ -65,15 +65,19 @@ class MenuController extends Controller
         unset($validated['photo']);
 
         if ($request->hasFile('photo')) {
-            // Hapus foto lama agar storage tidak menumpuk file yatim.
-            if ($menu->photo_path) {
-                Storage::disk('public')->delete($menu->photo_path);
-            }
+            // Simpan foto baru lebih dulu. Foto lama baru dihapus setelah
+            // update database berhasil agar kegagalan upload tidak membuat
+            // menu kehilangan foto yang masih valid.
+            $oldPhotoPath = $menu->photo_path;
             $validated['photo_path'] = $request->file('photo')->store('menus', 'public');
         }
 
         $validated['is_available'] = $request->boolean('is_available');
         $menu->update($validated);
+
+        if (isset($oldPhotoPath) && $oldPhotoPath) {
+            Storage::disk('public')->delete($oldPhotoPath);
+        }
 
         return redirect()
             ->route('merchant.menus.index')

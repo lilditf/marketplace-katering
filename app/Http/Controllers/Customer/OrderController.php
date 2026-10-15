@@ -48,7 +48,7 @@ class OrderController extends Controller
         $validated = $request->validate([
             'delivery_date' => ['required', 'date', 'after_or_equal:tomorrow', 'before:+6 months'],
             'notes' => ['nullable', 'string', 'max:500'],
-            'items' => ['required', 'array', 'min:1'],
+            'items' => ['required', 'array', 'min:1', 'max:50'],
             'items.*.menu_id' => ['required', 'integer', 'exists:menus,id'],
             'items.*.qty' => ['required', 'integer', 'min:1', 'max:10000'],
         ], [
@@ -58,6 +58,7 @@ class OrderController extends Controller
             'delivery_date.before' => 'Tanggal pengiriman maksimal 6 bulan ke depan.',
             'items.required' => 'Pilih minimal satu menu.',
             'items.min' => 'Pilih minimal satu menu.',
+            'items.max' => 'Maksimal 50 baris menu dalam satu pesanan.',
             'items.*.menu_id.required' => 'Menu wajib dipilih.',
             'items.*.menu_id.exists' => 'Menu tidak dikenali.',
             'items.*.qty.required' => 'Jumlah porsi wajib diisi.',
@@ -74,6 +75,15 @@ class OrderController extends Controller
                 'qty' => (int) $group->sum('qty'),
             ])
             ->values();
+
+        // Batas per baris tetap harus diperiksa setelah menu duplikat
+        // digabungkan. Tanpa pemeriksaan ini, banyak baris menu yang sama
+        // dapat dipakai untuk melewati batas 10.000 porsi.
+        if ($items->contains(fn ($item) => $item['qty'] > 10000)) {
+            return back()
+                ->withInput()
+                ->withErrors(['items' => 'Jumlah maksimal untuk satu menu adalah 10.000 porsi.']);
+        }
 
         // Semua menu harus milik katering INI dan masih tersedia —
         // mencegah order lintas merchant lewat manipulasi menu_id.
