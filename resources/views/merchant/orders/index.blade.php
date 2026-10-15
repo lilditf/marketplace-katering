@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.portal')
 
 @section('title', 'Order Masuk — Marketplace Katering')
 

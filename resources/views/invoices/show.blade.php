@@ -1,6 +1,6 @@
 {{-- Invoice bersama: diakses merchant (viewer=merchant) dan customer (viewer=customer).
      Tombol aksi berbeda per viewer; bagian ini juga print-friendly (lihat @media print). --}}
-@extends('layouts.app')
+@extends('layouts.portal')
 
 @section('title', 'Invoice ' . $invoice->invoice_number . ' — Marketplace Katering')
 

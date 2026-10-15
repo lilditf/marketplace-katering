@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.portal')
 
 @section('title', 'Order ' . $order->order_number . ' — Marketplace Katering')
 
