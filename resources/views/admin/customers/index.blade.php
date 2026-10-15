@@ -5,6 +5,8 @@
 @section('content')
     <h1 class="h4 fw-bold mb-3"><i class="bi bi-building me-1 text-brand"></i>Kelola Kantor (Customer)</h1>
 
+    @include('partials.datatable-toolbar')
+
     <div class="card shadow-sm">
         <div class="table-responsive">
             <table class="table table-hover mb-0">
@@ -39,8 +41,8 @@
                 </tbody>
             </table>
         </div>
-        @if ($customers->hasPages())
-            <div class="card-footer bg-white">{{ $customers->links() }}</div>
+        @if ($customers->total() > 0)
+            <div class="card-footer bg-white">@include('partials.pagination-info', ['rows' => $customers])</div>
         @endif
     </div>
 @endsection

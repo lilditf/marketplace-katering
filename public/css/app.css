@@ -616,3 +616,88 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
     .portal-main { margin: 0 !important; }
     .portal-content { padding: 0 !important; }
 }
+
+/* ============================================================
+   Sidebar v2: collapse rail (desktop) + bottom nav (mobile)
+   ============================================================ */
+
+/* Label teks di link sidebar (disembunyikan saat mode rail) */
+.sidebar-link .sidebar-label { white-space: nowrap; }
+
+/* Tombol collapse di dalam sidebar (desktop saja) */
+.sidebar-collapse-btn {
+    margin: .35rem .9rem .6rem;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: transparent;
+    color: rgba(255, 255, 255, .82);
+    border-radius: .5rem;
+    padding: .4rem .6rem;
+    font-size: .82rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.sidebar-collapse-btn:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+.sidebar-collapse-btn .bi { transition: transform .25s cubic-bezier(.22, .68, .35, 1); }
+
+/* Mode rail (collapsed): sidebar menyempit jadi kolom ikon */
+.sidebar-collapsed .portal-sidebar { width: 76px; }
+.sidebar-collapsed .portal-sidebar .sidebar-brand { justify-content: center; padding: 1.1rem .5rem; }
+.sidebar-collapsed .portal-sidebar .sidebar-brand .brand-text,
+.sidebar-collapsed .portal-sidebar .sidebar-label,
+.sidebar-collapsed .portal-sidebar .sidebar-section,
+.sidebar-collapsed .portal-sidebar .sidebar-foot { display: none; }
+.sidebar-collapsed .portal-sidebar .sidebar-link {
+    justify-content: center;
+    padding: .7rem .5rem;
+    border-left: none;
+    border-radius: .6rem;
+    margin: .1rem .55rem;
+}
+.sidebar-collapsed .portal-sidebar .sidebar-link .bi { font-size: 1.25rem; width: auto; }
+.sidebar-collapsed .portal-sidebar .sidebar-link.active { background: rgba(255, 255, 255, .12); }
+.sidebar-collapsed .sidebar-collapse-btn { justify-content: center; margin: .35rem .6rem .6rem; }
+.sidebar-collapsed .sidebar-collapse-btn .bi { transform: rotate(180deg); }
+.sidebar-collapsed .sidebar-collapse-btn .collapse-text { display: none; }
+
+/* Tooltip ikon saat rail: title native cukup (tanpa lib) */
+
+/* ---------- Bottom nav (mobile, pengganti hamburger) ---------- */
+.portal-bottomnav {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 1030;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    padding: .3rem .25rem calc(.3rem + env(safe-area-inset-bottom));
+}
+.portal-bottomnav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .1rem;
+    padding: .3rem .2rem;
+    font-size: .66rem;
+    font-weight: 600;
+    color: var(--muted);
+    border-radius: .5rem;
+}
+.portal-bottomnav a .bi { font-size: 1.15rem; }
+.portal-bottomnav a.active { color: var(--brand); }
+.portal-bottomnav a.active .bi { color: var(--brand); }
+
+/* Kompensasi ruang bawah agar konten tidak tertutup bottom nav */
+@media (max-width: 991.98px) {
+    .portal-content { padding-bottom: 5.5rem; }
+    .portal-topbar { position: static; }
+}
+
+/* ---------- Data table standar admin ---------- */
+.dt-toolbar .form-control, .dt-toolbar .form-select { max-width: 100%; }
+.dt-info { color: var(--muted); font-size: .82rem; }
+.pagination { --bs-pagination-active-bg: var(--brand); --bs-pagination-active-border-color: var(--brand);
+    --bs-pagination-color: var(--brand); --bs-pagination-hover-color: var(--brand-dark); margin-bottom: 0; }
+.table td, .table th { vertical-align: middle; }
