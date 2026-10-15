@@ -29,15 +29,11 @@
             @include('partials.sidebar')
         </aside>
 
-        {{-- Sidebar versi mobile: offcanvas yang dibuka lewat hamburger --}}
+        {{-- Sidebar versi mobile: offcanvas yang dibuka lewat hamburger.
+             Brand hanya dari partials/sidebar (jangan diduplikasi di header). --}}
         <div class="offcanvas offcanvas-start portal-offcanvas d-lg-none" tabindex="-1"
              id="portalSidebar" aria-label="Menu portal">
-            <div class="offcanvas-header">
-                <span class="sidebar-brand mb-0 pb-0 border-0">
-                    <i class="bi bi-basket2-fill"></i>Marketplace Katering
-                </span>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Tutup menu"></button>
-            </div>
+            <button type="button" class="btn-close portal-offcanvas-close" data-bs-dismiss="offcanvas" aria-label="Tutup menu"></button>
             <div class="offcanvas-body p-0 d-flex flex-column">
                 @include('partials.sidebar')
             </div>

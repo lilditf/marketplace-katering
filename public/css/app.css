@@ -512,7 +512,8 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
     overflow-y: auto;
 }
 
-.portal-sidebar .sidebar-brand {
+.portal-sidebar .sidebar-brand,
+.portal-offcanvas .sidebar-brand {
     font-family: "Fraunces", Georgia, serif;
     font-weight: 700;
     font-size: 1.1rem;
@@ -523,7 +524,7 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
     padding: 1.1rem 1.25rem;
     border-bottom: 1px solid rgba(255, 255, 255, .12);
 }
-.portal-sidebar .sidebar-brand:hover { color: var(--accent); }
+.portal-sidebar .sidebar-brand:hover, .portal-offcanvas .sidebar-brand:hover { color: var(--accent); }
 
 .sidebar-section {
     padding: .9rem 1.25rem .35rem;
@@ -705,3 +706,6 @@ a, .btn, .card, .form-control, .form-select, .page-link, .journey-card {
 .stat-card { flex-wrap: wrap; }
 .stat-card > div:last-child { min-width: 0; }
 .stat-card .fs-3, .stat-card .fs-6 { overflow-wrap: anywhere; }
+
+/* Tombol tutup offcanvas melayang di pojok kanan atas */
+.portal-offcanvas-close { position: absolute; top: 1rem; right: 1rem; z-index: 2; }
