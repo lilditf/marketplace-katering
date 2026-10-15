@@ -8,6 +8,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Fitur M4 (sisi invoice) — Invoice sisi merchant.
+ * Merchant hanya bisa membuka invoice milik kateringnya (403 untuk orang
+ * lain) dan menandai invoice sebagai lunas.
+ */
 class InvoiceController extends Controller
 {
     /**

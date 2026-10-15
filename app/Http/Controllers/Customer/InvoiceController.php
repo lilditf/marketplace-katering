@@ -7,6 +7,10 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Fitur C4 (sisi customer) — Akses invoice.
+ * Invoice hanya boleh dibuka kantor pemilik order; selain itu 403.
+ */
 class InvoiceController extends Controller
 {
     /**

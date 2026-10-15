@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ * Fitur M3 — CRUD menu katering.
+ * Tambah/ubah/hapus menu dengan foto (validasi mime+ukuran, simpan di disk
+ * public), toggle ketersediaan, dan guard: menu yang sudah pernah dipesan
+ * tidak bisa dihapus demi integritas invoice. Kepemilikan dicek MenuPolicy.
+ */
 class MenuController extends Controller
 {
     public function index(Request $request): View

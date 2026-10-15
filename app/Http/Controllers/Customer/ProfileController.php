@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
+/**
+ * Profil kantor (customer): nama kantor, kota, alamat, dan PIC.
+ */
 class ProfileController extends Controller
 {
     public function edit(Request $request): View

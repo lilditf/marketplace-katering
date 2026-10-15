@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Model akun pengguna untuk KEDUA portal.
+ * Satu tabel users + kolom role (merchant/customer) sebagai keputusan
+ * desain: lebih sederhana daripada multi-guard. Helper isMerchant()/
+ * isCustomer() dipakai middleware role dan redirect setelah login.
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
+/**
+ * Dashboard katering (merchant): total order, omzet bulan ini,
+ * menu terlaris, dan order terbaru yang perlu ditindaklanjuti.
+ */
 class DashboardController extends Controller
 {
     /**

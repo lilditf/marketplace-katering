@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
+/**
+ * Fitur C3 & C4 — Pembelian + penerbitan invoice otomatis.
+ * Form order (menu, porsi, tanggal kirim) dan proses store: harga selalu
+ * dihitung ulang dari database (anti price-tampering), order + item +
+ * invoice dibuat atomik dalam satu DB::transaction.
+ */
 class OrderController extends Controller
 {
     /**

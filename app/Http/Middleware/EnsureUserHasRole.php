@@ -6,6 +6,12 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Middleware "role" (didaftarkan sebagai alias di bootstrap/app.php).
+ * Lapis pertama otorisasi: route group /merchant hanya untuk role merchant,
+ * /customer hanya untuk role customer; selain itu 403. Lapis kedua
+ * (kepemilikan data) dicek per-resource di policy/controller.
+ */
 class EnsureUserHasRole
 {
     /**

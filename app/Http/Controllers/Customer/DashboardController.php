@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Dashboard kantor (customer): ringkasan order aktif, total transaksi,
+ * dan order terbaru — halaman pertama setelah login.
+ */
 class DashboardController extends Controller
 {
     /**

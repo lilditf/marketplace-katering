@@ -8,6 +8,11 @@ use App\Models\MerchantProfile;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Fitur C2 — Pencarian Katering (portal customer).
+ * Daftar katering dengan filter keyword/kota/jenis makanan + urutan &
+ * pagination, serta halaman detail katering sebagai katalog menu.
+ */
 class CateringController extends Controller
 {
     /**

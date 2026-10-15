@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Menu katering: nama, deskripsi, harga, foto, kategori, dan flag
+ * is_available (cara menyembunyikan menu tanpa menghapus — menu yang sudah
+ * pernah dipesan dilindungi FK RESTRICT demi integritas invoice).
+ * scopeAvailable() dipakai katalog customer agar menu nonaktif tak tampil.
+ */
 class Menu extends Model
 {
     /**

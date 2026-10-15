@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ * Fitur M2 — Profil perusahaan katering.
+ * Nama perusahaan, kota, alamat, jenis makanan, deskripsi, kontak,
+ * dan status aktif/nonaktif katalog.
+ */
 class ProfileController extends Controller
 {
     public function edit(Request $request): View

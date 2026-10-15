@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Invoice 1:1 dengan Order — dibuat otomatis dalam transaction yang sama
+ * saat pembelian (fitur C4). payment_status: belum_lunas/lunas, ditandai
+ * merchant. Bisa diakses kedua pihak (masing-masing hanya miliknya).
+ */
 class Invoice extends Model
 {
     protected $fillable = [

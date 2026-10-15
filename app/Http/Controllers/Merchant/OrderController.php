@@ -8,6 +8,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * Fitur M4 — Daftar order masuk (portal merchant).
+ * Daftar pesanan dengan filter status, detail order + invoice, dan
+ * pembaruan status berurutan: pending → dikonfirmasi → dikirim → selesai
+ * (atau dibatalkan).
+ */
 class OrderController extends Controller
 {
     /**

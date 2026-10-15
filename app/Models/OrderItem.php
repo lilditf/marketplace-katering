@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Baris item sebuah order. price_snapshot menyalin harga menu SAAT transaksi
+ * terjadi, sehingga perubahan harga menu kemudian tidak mengubah invoice
+ * lama (integritas historis).
+ */
 class OrderItem extends Model
 {
     protected $fillable = [

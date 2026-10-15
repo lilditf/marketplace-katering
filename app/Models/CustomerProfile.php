@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Profil kantor customer (1:1 dengan User role=customer):
+ * nama kantor, kota/alamat pengiriman, dan PIC penanggung jawab pesanan.
+ */
 class CustomerProfile extends Model
 {
     protected $fillable = [

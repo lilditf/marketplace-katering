@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Profil perusahaan katering (1:1 dengan User role=merchant).
+ * Memuat data katalog: kota & jenis makanan (keduanya ber-index dan dipakai
+ * filter pencarian via scopeSearch), plus status aktif untuk menyembunyikan
+ * katering dari hasil pencarian tanpa menghapus akun.
+ */
 class MerchantProfile extends Model
 {
     protected $fillable = [

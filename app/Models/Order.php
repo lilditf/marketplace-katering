@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Order pembelian dari kantor ke katering.
+ * order_number unik (ORD-tanggal-urut, diturunkan dari primary key di dalam
+ * transaction agar anti race condition). Status mengalir satu arah:
+ * pending → dikonfirmasi → dikirim → selesai (atau dibatalkan).
+ */
 class Order extends Model
 {
     /**
