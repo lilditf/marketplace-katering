@@ -9,6 +9,7 @@ use App\Models\MerchantProfile;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -208,6 +209,94 @@ class MarketplaceFlowTest extends TestCase
         $response->assertRedirect(route('customer.orders.create', $merchant));
         $response->assertSessionHasErrors('items');
         $this->assertDatabaseCount('orders', 0);
+    }
+
+    public function test_menu_photo_rejects_non_image_file(): void
+    {
+        [$merchantUser] = $this->createMerchant();
+
+        $file = UploadedFile::fake()->create('shell.php', 10, 'application/x-php');
+
+        $response = $this->actingAs($merchantUser)
+            ->post(route('merchant.menus.store'), [
+                'name' => 'Menu Uji',
+                'price' => 15000,
+                'category' => 'Paket',
+                'photo' => $file,
+            ]);
+
+        $response->assertSessionHasErrors('photo');
+        $this->assertDatabaseCount('menus', 1); // hanya menu bawaan helper
+    }
+
+    public function test_menu_photo_rejects_file_over_2mb(): void
+    {
+        [$merchantUser] = $this->createMerchant();
+
+        $file = UploadedFile::fake()->image('besar.jpg')->size(3000);
+
+        $response = $this->actingAs($merchantUser)
+            ->post(route('merchant.menus.store'), [
+                'name' => 'Menu Uji',
+                'price' => 15000,
+                'category' => 'Paket',
+                'photo' => $file,
+            ]);
+
+        $response->assertSessionHasErrors('photo');
+        $this->assertDatabaseCount('menus', 1);
+    }
+
+    public function test_menu_name_with_script_tag_is_escaped_in_output(): void
+    {
+        [$merchantUser, $merchant] = $this->createMerchant();
+        Menu::create([
+            'merchant_profile_id' => $merchant->id,
+            'name' => '<script>alert("xss")</script>',
+            'price' => 10000,
+            'category' => 'Paket',
+            'is_available' => true,
+        ]);
+
+        $response = $this->actingAs($merchantUser)->get(route('merchant.menus.index'));
+
+        $response->assertOk();
+        $response->assertDontSee('<script>alert("xss")</script>', false);
+        $response->assertSee('&lt;script&gt;', false);
+    }
+
+    public function test_delivery_date_in_the_past_is_rejected(): void
+    {
+        [, $merchant, $menu] = $this->createMerchant();
+        [$customerUser] = $this->createCustomer();
+
+        $response = $this->actingAs($customerUser)
+            ->post(route('customer.orders.store', $merchant), [
+                'delivery_date' => now()->subDay()->toDateString(),
+                'items' => [['menu_id' => $menu->id, 'qty' => 1]],
+            ]);
+
+        $response->assertSessionHasErrors('delivery_date');
+        $this->assertDatabaseCount('orders', 0);
+    }
+
+    public function test_login_is_throttled_after_five_failed_attempts(): void
+    {
+        [$customerUser] = $this->createCustomer();
+        $payload = ['email' => $customerUser->email, 'password' => 'salah123'];
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(route('login.store'), $payload);
+        }
+
+        // Percobaan ke-6: bahkan password BENAR pun ditolak selama terkunci.
+        $response = $this->post(route('login.store'), [
+            'email' => $customerUser->email,
+            'password' => 'password',
+        ]);
+
+        $response->assertSessionHasErrors('email');
+        $this->assertGuest();
     }
 
     /**
